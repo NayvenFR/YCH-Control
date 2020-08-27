@@ -52,12 +52,12 @@
     }
   },
   "bugs": {
-    "url": "https://bitbucket.org/athom/com.athom.myapp/issues"
+    "url": "https://github.com/NayvenFR/YCH-Control/issues"
   },
   "homeyCommunityTopicId": 1234,
-  "source": "https://github.com/athombv/com.athom.myapp",
-  "homepage": "https://homey.app",
-  "support": "mailto:support@homey.app",
+  "source": "https://github.com/NayvenFR/YCH-Control",
+  "homepage": "https://yelca-m.fr",
+  "support": "mailto:NayvenDev@gmail.com",
   "category": [
     "appliances"
   ],
