@@ -1,0 +1,14 @@
+{
+  "name": "fr.yelca-m.homecontrol",
+  "version": "1.0.0",
+  "main": "app.js",
+  "engines": {
+    "node": ">=12.16.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-athom": "^2.1.0",
+    "homey": "^2.5.1",
+    "node-fetch": "^2.6.0"
+  }
+}

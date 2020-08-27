@@ -1,0 +1,135 @@
+{
+  "id": "fr.yelca-m.ychcontrol",
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "YCH Control",
+    "fr": "YCH Control"
+  },
+  "description": {
+    "en": "Legrand® Home + Control for Homey",
+    "fr": "Legrand® Home + Control pour Homey"
+  },
+  "tags": {
+    "en": [
+      "Legrand",
+      "Home",
+      "Control",
+      "Home + Control",
+      "lights",
+      "sockets",
+      "connected"
+    ],
+    "fr": [
+      "Legrand",
+      "Home",
+      "Control",
+      "Home + Control",
+      "lumière",
+      "prise",
+      "connectée"
+    ]
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Yann Montiel",
+        "email": "montiel.yann&gmail.com"
+      }
+    ],
+    "translators": [
+      {
+        "name": "Yann Montiel"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "paypal.me/yannmtl"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://bitbucket.org/athom/com.athom.myapp/issues"
+  },
+  "homeyCommunityTopicId": 1234,
+  "source": "https://github.com/athombv/com.athom.myapp",
+  "homepage": "https://homey.app",
+  "support": "mailto:support@homey.app",
+  "category": [
+    "appliances"
+  ],
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "YELCA-M",
+    "email": "office@yelca-m.fr"
+  },
+  "drivers": [
+    {
+      "id": "lightdriver",
+      "name": {
+        "en": "Connected lights",
+        "fr": "Lumières connectées"
+      },
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "class": "light",
+      "capabilities": [],
+      "images": {
+        "large": "/drivers/lightdriver/assets/images/large.jpg",
+        "small": "/drivers/lightdriver/assets/images/small.jpg"
+      }
+    },
+    {
+      "id": "socketsdriver",
+      "name": {
+        "en": "Connected sockets",
+        "fr": "Prises connectées"
+      },
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "class": "socket",
+      "capabilities": [],
+      "images": {
+        "large": "/drivers/socketsdriver/assets/images/large.jpg",
+        "small": "/drivers/socketsdriver/assets/images/small.jpg"
+      }
+    }
+  ]
+}

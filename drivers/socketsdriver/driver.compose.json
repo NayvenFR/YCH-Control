@@ -1,0 +1,30 @@
+{
+  "id": "socketsdriver",
+  "name": {
+    "en": "Connected sockets",
+    "fr": "Prises connectées"
+  },
+  "pair": [
+    {
+      "id": "login_oauth2",
+      "template": "login_oauth2"
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "class": "socket",
+  "capabilities": [],
+  "images": {
+    "large": "/drivers/socketsdriver/assets/images/large.jpg",
+    "small": "/drivers/socketsdriver/assets/images/small.jpg"
+  }
+}
