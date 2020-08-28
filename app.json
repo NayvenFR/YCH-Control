@@ -16,19 +16,24 @@
       "Legrand",
       "Home",
       "Control",
-      "Home + Control",
+      "+",
       "lights",
       "sockets",
-      "connected"
+      "connected",
+      "YCH",
+      "curtains"
     ],
     "fr": [
       "Legrand",
       "Home",
       "Control",
-      "Home + Control",
+      "+",
       "lumière",
       "prise",
-      "connectée"
+      "connectée",
+      "YCH",
+      "Volets",
+      "Roulants"
     ]
   },
   "contributors": {
