@@ -7,7 +7,6 @@ const QUERY_MAP = {
   TOKEN_URL: 'https://partners-login.eliotbylegrand.com/token',
   PLANT_URL: 'https://api.developer.legrand.com/hc/api/v1.0/plants/{TOPOLOGY}',
   PLANT_URL_STATUS : 'https://api.developer.legrand.com/hc/api/v1.0/plants/{plantId}',
-  ADD_PLANT_SUBSCRPTION_URL : 'https://api.developer.legrand.com/hc/api/v1.0/addsubscription',
   DEVICE_STATUS: 'https://api.developer.legrand.com/hc/api/v1.0/{DEVICE_TYPE}/addressLocation/plants/{plantId}/modules/parameter/id/value/{moduleId}',
   TOKEN_BODY: 'grant_type={GRANT_TYPE}&client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&{TOKEN_TYPE}',
 
