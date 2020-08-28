@@ -1,6 +1,6 @@
 Legrand® Home + Control for Homey
 
-This app allows you to connect to your Legrand® Home + Control environment to Homey and control your devices directly from Homey.
+This app allows you to connect your Legrand® Home + Control environment to Homey and control your devices directly from Homey.
 
 The supported devices are the following:
 
