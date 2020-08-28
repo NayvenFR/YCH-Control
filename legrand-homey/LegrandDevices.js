@@ -81,9 +81,9 @@ class LegrandDevices {
     static registerDeviceCapabilitiesListener(HomeyDevice){
         HomeyDevice.registerMultipleCapabilityListener(HomeyDevice.getCapabilities(), ( capabilityValues, capabilityOptions ) => {
             LegrandDevices.onCapabilityChange(HomeyDevice, HomeyDevice.getCapabilities(), capabilityValues,capabilityOptions)
-                .then(nothingIsPasses => {return Promise.resolve()})
+                .then(nothingIsPassed => {return Promise.resolve()})
                 .catch(err => Promise.reject(err));
-            LegrandDevices.getStatusDebounceCall(HomeyDevice, 5000);
+            LegrandDevices.getStatusDebounceCall(HomeyDevice, 1000);
         }, 1000);
     }
 
@@ -126,14 +126,11 @@ class LegrandDevices {
             const AUTH_MAP = res;
             LegrandDevices.changeDeviceValuesMap(HomeyDevice, capabilitiesIdArray, valuesArray);
 
-            try {
-                await HomeyDevice.homey.app.legrand_api.setDeviceStatus(AUTH_MAP, HomeyDevice.data, HomeyDevice.valueMap).then(res => {
-                    HomeyDevice.log(res);
-                });
-            } catch (e) {
-                return Promise.reject(e);
-            }
-            return Promise.resolve();
+            HomeyDevice.homey.app.legrand_api.setDeviceStatus(AUTH_MAP, HomeyDevice.data, HomeyDevice.valueMap).then(res => {
+                HomeyDevice.log(res);
+                return Promise.resolve();
+            }).catch(err => HomeyDevice.log(err));
+
         }).catch(err => {
             return Promise.reject(err)
         });
