@@ -1,7 +1,5 @@
 'use strict';
 
-//todo : modifier pour accéder aux constantes en utilisant un fichier
-
 const Homey = require('homey');
 const LegrandQuery = require('./lib/LegrandQuery');
 const LegrandRoom = require('./lib/LegrandRoom');
