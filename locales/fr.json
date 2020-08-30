@@ -1,0 +1,14 @@
+{
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Page de configuration de YCH Control",
+    "sync_message": "Interval de synchronisation",
+    "delay_message": "Délai de retour d'état",
+    "sync_speed": "Modifie l'interval de synchronisation des appareils (en secondes)",
+    "delay": "Modifie le délai entre une demande de changement d'état et le retour d'état de l'appareil (en secondes)",
+    "save_preferences": "Sauvegarder",
+    "count": "Compteur de requêtes",
+    "reset" : "Reset",
+    "count_message" : "Cette valeur est importante, car au dela de 500 requêtes/jour, l'application ne pourra plus dialoguer avec Legrand puisqu'ils imposent une limite de requêtes."
+  }
+}

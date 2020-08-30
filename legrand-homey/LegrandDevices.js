@@ -19,6 +19,7 @@ class LegrandDevices {
         HomeyDevice.homey.app.refreshAllDevicesStatus();
         LegrandDevices.registerDeviceCapabilitiesListener(HomeyDevice);
 
+        //Listener for device state change
         HomeyDevice.homey.app.emitter.on('state_device_changed', (key, data) => {
             if (key === HomeyDevice.data['id']) (LegrandDevices.onRefreshDeviceStatus(HomeyDevice, data));
         });
@@ -83,7 +84,7 @@ class LegrandDevices {
             LegrandDevices.onCapabilityChange(HomeyDevice, HomeyDevice.getCapabilities(), capabilityValues,capabilityOptions)
                 .then(nothingIsPassed => {return Promise.resolve()})
                 .catch(err => Promise.reject(err));
-            LegrandDevices.getStatusDebounceCall(HomeyDevice, 1000);
+            LegrandDevices.getStatusDebounceCall(HomeyDevice, HomeyDevice.homey.app.delaySpeed);
         }, 1000);
     }
 

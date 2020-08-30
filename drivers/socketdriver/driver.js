@@ -3,7 +3,7 @@
 const Homey = require('homey');
 const LegrandDriver = require('../../legrand-homey/LegrandDriver');
 
-class SocketsDriver extends Homey.Driver {
+class SocketDriver extends Homey.Driver {
 
 	onInit() {
 		this.driver_type = 'plug';
@@ -16,4 +16,4 @@ class SocketsDriver extends Homey.Driver {
 	}
 }
 
-module.exports = SocketsDriver;
+module.exports = SocketDriver;

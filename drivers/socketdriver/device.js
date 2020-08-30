@@ -4,7 +4,7 @@ const Homey = require('homey');
 const LegrandDevices = require('../../legrand-homey/LegrandDevices');
 
 
-class SocketsDevice extends Homey.Device {
+class SocketDevice extends Homey.Device {
 
 	onInit() {
 		LegrandDevices.onInitLegrand(this);
@@ -12,4 +12,4 @@ class SocketsDevice extends Homey.Device {
 	
 }
 
-module.exports = SocketsDevice;
+module.exports = SocketDevice;

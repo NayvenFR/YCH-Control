@@ -1,1 +1,14 @@
-{}
+{
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Modify app's configuration here",
+    "sync_message": "Synchronization interval :",
+    "delay_message": "Status feedback delay",
+    "sync_speed": "Changes the synchronization interval of devices (in seconds)",
+    "delay": "Modifies the delay between a request for a change of state and the return of device status (in seconds)",
+    "save_preferences": "Save preferences",
+    "count": "Requests count",
+    "reset" : "Reset",
+    "count_message" : "That value is important because if your number of requests is above 500/day the application may not work anymore."
+  }
+}

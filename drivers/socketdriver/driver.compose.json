@@ -1,5 +1,5 @@
 {
-  "id": "socketsdriver",
+  "id": "socketdriver",
   "name": {
     "en": "Socket",
     "fr": "Prise"
@@ -24,7 +24,7 @@
   "class": "socket",
   "capabilities": [],
   "images": {
-    "large": "/drivers/socketsdriver/assets/images/large.jpg",
-    "small": "/drivers/socketsdriver/assets/images/small.jpg"
+    "large": "/drivers/socketdriver/assets/images/large.jpg",
+    "small": "/drivers/socketdriver/assets/images/small.jpg"
   }
 }

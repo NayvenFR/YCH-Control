@@ -4,9 +4,12 @@ const Homey = require('homey');
 const LegrandAPI = require('./legrand-homey/LegrandAPI');
 const events = require('events');
 
+const fullDayMs = 24*60*60*1000;
 //Constantes qui représentent la durée maximale de validité des tokens, utilisés dans la fonction checkaccesstoken
 const access_Token_Timeout = 3600 * 1000;
 const refresh_Token_Timeout = 7776000 * 1000;
+const default_sync_speed = 10*60000;
+const default_delay_speed = 5000;
 
 class YchControl extends Homey.App {
 
@@ -35,8 +38,11 @@ class YchControl extends Homey.App {
     this.emitter = new events.EventEmitter();
     //Instanciations globale de cette classe statique car elle intègre les méthodes pour intéragir avec l'api
     this.legrand_api = LegrandAPI;
+
+    this.initSpeeds(this);
+    this.checkRequestCounts();
     await this.refreshAccessToken().catch(err => this.log(err));
-    this.periodicalRefreshStatus(this);
+    this.periodicalRefreshStatus(this, this.syncSpeed); //Default
   }
 
   //Cette méthode permet de reset le timer
@@ -44,13 +50,73 @@ class YchControl extends Homey.App {
     this.homey.clearTimeout(this.timer);
   }
 
+  clearInterval(){
+    this.homey.clearInterval(this.interval);
+  }
+
+  onChangePeriodicalRefreshStatusTimeout(delay){
+    this.clearInterval();
+    this.periodicalRefreshStatus(this, delay);
+  }
+
+  updateRequestCounts(){
+    this.checkRequestCounts();
+    let requestCounts = this.getStoredSettings('requestsCounts');
+    requestCounts = requestCounts + 1;
+    this.updateStoredSettings('requestsCounts', requestCounts);
+  }
+
+  checkRequestCounts(){
+    const latestDateRegistered = this.getStoredSettings('countDate');
+    const now = Date.now();
+
+    if (latestDateRegistered === null) {
+      this.updateStoredSettings('countDate', now);
+      const requestCounts = 0;
+      this.updateStoredSettings('requestsCounts', requestCounts);
+    }
+    else if (now - latestDateRegistered > fullDayMs){
+      this.updateStoredSettings('countDate', now);
+      const requestCounts = 0;
+      this.updateStoredSettings('requestsCounts', requestCounts);
+    }
+  }
+
+  initSpeeds(context){
+    if (context.getStoredSettings('sync_speed') == null){
+      context.syncSpeed = default_sync_speed;
+      context.updateStoredSettings('sync_speed', context.syncSpeed);
+    }
+    else{
+      context.syncSpeed = context.getStoredSettings('sync_speed');
+    }
+
+    if (context.getStoredSettings('delay_speed') == null){
+      context.delaySpeed = default_delay_speed;
+      context.updateStoredSettings('delay_speed', context.delaySpeed);
+    }
+    else{
+      context.delaySpeed = context.getStoredSettings('delay_speed');
+    }
+
+    context.homey.settings.on('set', function (key) {
+      if (key === 'sync_speed'){
+        context.syncSpeed = context.getStoredSettings('sync_speed');
+        context.onChangePeriodicalRefreshStatusTimeout(context.syncSpeed);
+      }
+      else if (key === 'delay_speed'){
+        context.delaySpeed = context.getStoredSettings('delay_speed');
+      }
+    })
+  }
+
   //Cette fait un appel périodique de refreshAllDevicesStatuses
   //Elle prend en paramètre une référence à l'instance Legrand, pour accéder à ses méthodes
   //Obligatoire parce que le callback de setInterval ne permet pas d'utiliser le key word "this".
-  periodicalRefreshStatus(context){
-    this.homey.setInterval(function () {
+  periodicalRefreshStatus(context, delay){
+    this.interval = this.homey.setInterval(function () {
       context.refreshAllDevicesStatus();
-    }, 10*60000);
+    }, delay);
   }
 
   //Cette méthode permet d'accéder aux status de tous les devices, avec un workaround particulier
@@ -88,12 +154,14 @@ class YchControl extends Homey.App {
     return new Promise((resolve, reject) => {
       this.checkTokensTimeout().then(res => {
         this.log(res);
+        this.updateRequestCounts();
         resolve(this.GLOBAL_AUTH_MAP);
       }).catch(err => {
         if (err === 'refresh_token') {
           this.legrand_api.getAccessToken(this.GLOBAL_AUTH_MAP).then(res => {
             this.registerTokens(res);
             this.log('[TOKEN] Tokens Refreshed');
+            this.updateRequestCounts();
             resolve(this.GLOBAL_AUTH_MAP);
           }).catch(error => {
             reject(error);
@@ -147,16 +215,6 @@ class YchControl extends Homey.App {
 
   updateStoredSettings(key, value) {
     this.homey.settings.set(key, value);
-  }
-
-  makeid(length) {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
   }
 
 }

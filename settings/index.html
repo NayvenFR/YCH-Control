@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<head>
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+    <meta charset="UTF-8">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center" data-i18n="settings.title">
+            </h3>
+            <p class="text-center" data-i18n="settings.subtitle">
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset id="preferences">
+                <legend data-i18n="settings.sync_message" class="text-center"></legend>
+
+                <label for="sync_speed" data-i18n="settings.sync_speed"></label>
+                <input id="sync_speed" type="text" value=""/>
+
+                <button id="saveSyncSpeed" class="left" style="display:block" data-i18n="settings.save_preferences" ></button>
+            </fieldset>
+        </div>
+        <div class="col-md-6">
+            <fieldset>
+                <legend data-i18n="settings.delay_message" class="text-center"></legend>
+
+                <label for="delay" data-i18n="settings.delay"></label>
+                <input id="delay" type="text" value=""/>
+
+                <button id="saveDelay" class="left" style="display:block" data-i18n="settings.save_preferences" ></button>
+            </fieldset>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <fieldset>
+                <legend data-i18n="settings.count" class="text-center"></legend>
+
+                <label for="delay" data-i18n="settings.count_message"></label>
+                <output id="counter">
+                </output>
+
+                <button id="resetCount" class="left" style="display:block" data-i18n="settings.reset" ></button>
+            </fieldset>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function onHomeyReady(Homey) {
+        let syncButton = document.getElementById('saveSyncSpeed');
+        let delayButton = document.getElementById('saveDelay');
+        let resetButton = document.getElementById('resetCount');
+
+        let syncSpeedEl = document.getElementById('sync_speed');
+        let delayEl = document.getElementById('delay');
+
+        let counterEl = document.getElementById('counter');
+
+        Homey.get('sync_speed', function (err, syncSpeed) {
+            if (err) return Homey.alert(err);
+            syncSpeedEl.value = syncSpeed / 1000;
+        });
+
+        Homey.get('delay_speed', function (err, delaySpeed) {
+            if (err) return Homey.alert(err);
+            delayEl.value = delaySpeed / 1000;
+        });
+
+        Homey.get('requestsCounts', function (err, count) {
+            if (err) return Homey.alert(err);
+            counterEl.value = count;
+        });
+
+        Homey.ready();
+
+        syncButton.addEventListener('click', function () {
+            Homey.set('sync_speed', syncSpeedEl.value * 1000, function (err) {
+                if (err) return Homey.alert(err);
+            });
+        })
+
+        delayButton.addEventListener('click', function () {
+            Homey.set('delay_speed', delayEl.value * 1000, function (err) {
+                if (err) return Homey.alert(err);
+            });
+        })
+
+        resetButton.addEventListener('click', function () {
+            Homey.set('requestsCounts', 0, function (err) {
+                if (err) return Homey.alert(err);
+            });
+        })
+
+    }
+</script>
+
+</body>
+</html>

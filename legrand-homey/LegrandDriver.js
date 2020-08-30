@@ -4,7 +4,7 @@ class LegrandDriver {
 
   //Méthode statique d'appairage des modules, la même pour chacun des drivers.
   static async onPairLegrand(session, HomeyDriver, Homey) {
-    const apiUrl = `https://partners-login.eliotbylegrand.com/authorize?client_id=${Homey.env.CLIENT_ID}&redirect_uri=https://callback.athom.com/oauth2/callback/&response_type=code&state=${HomeyDriver.homey.app.makeid(15)}`;
+    const apiUrl = `https://partners-login.eliotbylegrand.com/authorize?client_id=${Homey.env.CLIENT_ID}&redirect_uri=https://callback.athom.com/oauth2/callback/&response_type=code`;
     const myOAuth2Callback = await HomeyDriver.homey.cloud.createOAuth2Callback(apiUrl);
     let devices;
     let plants;

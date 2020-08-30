@@ -60,7 +60,6 @@
     "url": "https://github.com/NayvenFR/YCH-Control/issues"
   },
   "homeyCommunityTopicId": 34093,
-  "source": "https://github.com/NayvenFR/YCH-Control",
   "homepage": "https://yelca-m.fr",
   "support": "mailto:NayvenDev@gmail.com",
   "category": [
@@ -79,8 +78,8 @@
     {
       "id": "lightdriver",
       "name": {
-        "en": "Connected lights",
-        "fr": "Lumières connectées"
+        "en": "Light",
+        "fr": "Lumière"
       },
       "pair": [
         {
@@ -107,10 +106,10 @@
       }
     },
     {
-      "id": "socketsdriver",
+      "id": "socketdriver",
       "name": {
-        "en": "Connected sockets",
-        "fr": "Prises connectées"
+        "en": "Socket",
+        "fr": "Prise"
       },
       "pair": [
         {
@@ -132,8 +131,8 @@
       "class": "socket",
       "capabilities": [],
       "images": {
-        "large": "/drivers/socketsdriver/assets/images/large.jpg",
-        "small": "/drivers/socketsdriver/assets/images/small.jpg"
+        "large": "/drivers/socketdriver/assets/images/large.jpg",
+        "small": "/drivers/socketdriver/assets/images/small.jpg"
       }
     }
   ]

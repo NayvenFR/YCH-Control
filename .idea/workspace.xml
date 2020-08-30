@@ -20,16 +20,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9d5a8bc-1c13-440c-b1c6-fced05b415a1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/lightdriver/driver.compose.json" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/lightdriver/driver.compose.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/driver.compose.json" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketsdriver/driver.compose.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/lightdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/lightdriver/driver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/assets/icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/assets/icon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/assets/images/large.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/assets/images/large.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/assets/images/small.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/assets/images/small.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/device.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/device.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/driver.compose.json" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/driver.compose.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/driver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,10 +58,16 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/settings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/settings" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -59,7 +82,7 @@
       <workItem from="1598557010756" duration="6000" />
       <workItem from="1598557722065" duration="1600000" />
       <workItem from="1598602671955" duration="5453000" />
-      <workItem from="1598783088639" duration="291000" />
+      <workItem from="1598783088639" duration="13681000" />
     </task>
     <servers />
   </component>
@@ -77,5 +100,23 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598799966615">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.877@0.23.1440.877" timestamp="1598799966615" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/app.js</url>
+          <line>117</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
