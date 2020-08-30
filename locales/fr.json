@@ -5,10 +5,12 @@
     "sync_message": "Interval de synchronisation",
     "delay_message": "Délai de retour d'état",
     "sync_speed": "Modifie l'interval de synchronisation des appareils (en secondes)",
+    "sync_recom": "Recommandé : 600 secondes (toutes les 10 minutes)",
     "delay": "Modifie le délai entre une demande de changement d'état et le retour d'état de l'appareil (en secondes)",
     "save_preferences": "Sauvegarder",
+    "delay_recom" : "Recommandé : 5 secondes (dépends fortement de la vitesse de votre connexion internet)",
     "count": "Compteur de requêtes",
     "reset" : "Reset",
-    "count_message" : "Cette valeur est importante, car au dela de 500 requêtes/jour, l'application ne pourra plus dialoguer avec Legrand puisqu'ils imposent une limite de requêtes."
+    "count_message" : "Cette valeur est importante, car au delà de 500 requêtes/jour, l'application ne pourra plus dialoguer avec Legrand puisqu'ils imposent une limite de requêtes."
   }
 }

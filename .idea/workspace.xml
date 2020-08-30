@@ -20,20 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9d5a8bc-1c13-440c-b1c6-fced05b415a1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/lightdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/lightdriver/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/assets/icon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/assets/icon.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/assets/images/large.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/assets/images/large.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/assets/images/small.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/assets/images/small.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/device.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/device.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/driver.compose.json" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/driver.compose.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/socketsdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/large.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/large.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/small.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/small.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/locales/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/fr.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/fr.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/settings/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +75,7 @@
       <workItem from="1598557722065" duration="1600000" />
       <workItem from="1598602671955" duration="5453000" />
       <workItem from="1598783088639" duration="13681000" />
+      <workItem from="1598802574984" duration="845000" />
     </task>
     <servers />
   </component>
@@ -113,7 +106,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app.js</url>
           <line>117</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
