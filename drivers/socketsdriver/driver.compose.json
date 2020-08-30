@@ -1,8 +1,8 @@
 {
   "id": "socketsdriver",
   "name": {
-    "en": "Connected sockets",
-    "fr": "Prises connectées"
+    "en": "Socket",
+    "fr": "Prise"
   },
   "pair": [
     {

@@ -1,8 +1,8 @@
 {
   "id": "lightdriver",
   "name": {
-    "en": "Connected lights",
-    "fr": "Lumières connectées"
+    "en": "Light",
+    "fr": "Lumière"
   },
   "pair": [
     {
