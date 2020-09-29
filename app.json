@@ -52,7 +52,7 @@
   "contributing": {
     "donate": {
       "paypal": {
-        "username": "paypal.me/yannmtl"
+        "username": "yannmtl"
       }
     }
   },
@@ -60,7 +60,8 @@
     "url": "https://github.com/NayvenFR/YCH-Control/issues"
   },
   "homeyCommunityTopicId": 34093,
-  "homepage": "https://yelca-m.fr",
+  "homepage": "https://www.yelca-m.fr",
+  "source" : "https://github.com/NayvenFR/YCH-Control",
   "support": "mailto:NayvenDev@gmail.com",
   "category": [
     "appliances"

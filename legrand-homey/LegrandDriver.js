@@ -36,7 +36,7 @@ class LegrandDriver {
     session.setHandler('list_devices', async data => {
       [devices, plants] = await LegrandDriver.driverGetDevicesList(HomeyDriver)
           .catch(err => HomeyDriver.log(err));
-      LegrandDriver.storePlantAndDevicesData(HomeyDriver, devices, plants);
+      LegrandDriver.storePlantAndDevicesData(HomeyDriver, plants);
       //On envoie au front end la liste des devices
       await session.emit('list_devices', devices);
       HomeyDriver.log('Pairing session terminated');
@@ -69,20 +69,8 @@ class LegrandDriver {
     });
   }
 
-  static storePlantAndDevicesData (HomeyDriver, devices, plants){
+  static storePlantAndDevicesData (HomeyDriver, plants){
     HomeyDriver.homey.app.updateStoredSettings('plants', plants);
-    let HwTypeArray;
-    if(HomeyDriver.homey.app.getStoredSettings('HwTypeArray') === null) {
-      HwTypeArray = {};
-    }
-    else {
-      HwTypeArray = HomeyDriver.homey.app.getStoredSettings('HwTypeArray');
-    }
-    for (let item of devices){
-      HomeyDriver.homey.app.updateStoredSettings(item['data']['id'], [item, undefined]);
-      HwTypeArray[item['data']['id']] = item['store']['Hwtype'];
-    }
-    HomeyDriver.homey.app.updateStoredSettings('HwTypeArray', HwTypeArray);
   }
 
 }

@@ -19,7 +19,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9d5a8bc-1c13-440c-b1c6-fced05b415a1" name="Default Changelist" comment="" />
+    <list default="true" id="a9d5a8bc-1c13-440c-b1c6-fced05b415a1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,6 +46,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="364bd0e4-95c5-442f-9889-4c4f7e6e6a4f" />
   <component name="ProjectId" id="1ghBZgVlalz9PxwCZCHhAFDdA6A" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -48,12 +59,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/settings" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/settings" />
     </key>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -69,11 +83,21 @@
       <workItem from="1598602671955" duration="5453000" />
       <workItem from="1598783088639" duration="13681000" />
       <workItem from="1598802574984" duration="857000" />
+      <workItem from="1598809542705" duration="525000" />
+      <workItem from="1598865450840" duration="2026000" />
+      <workItem from="1600351350742" duration="12000" />
+      <workItem from="1600351424383" duration="146000" />
+      <workItem from="1600351659714" duration="139000" />
+      <workItem from="1600352769308" duration="31000" />
+      <workItem from="1600352861193" duration="91000" />
+      <workItem from="1600353050613" duration="27000" />
+      <workItem from="1601309118139" duration="742000" />
+      <workItem from="1601386513802" duration="16405000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -92,14 +116,23 @@
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.877@0.23.1440.877" timestamp="1598799966615" />
+    <state x="408" y="204" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1600352887525">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="408" y="204" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.877@0.23.1440.877" timestamp="1600352887525" />
+    <state x="385" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1601389975242">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="385" y="213" width="670" height="676" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1601389975242" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/app.js</url>
-          <line>117</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/legrand-homey/YchUtil.js</url>
+          <line>153</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
