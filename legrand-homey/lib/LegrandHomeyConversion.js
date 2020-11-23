@@ -29,13 +29,14 @@ const deviceCapabilityValueTranslationFromApiToHomey = {
 const capabilitiesPerType = {
     //Lights
     "NLPT" : ["onoff", "measure_power"],
-    "NLM" : ["onoff"],
+    "NLM" : ["onoff", "measure_power"],
     "NLF" : ["onoff", "measure_power", "dim"],
     //Plugs
     "NLPO" : ["onoff", "measure_power"],
     "NLP" : ["onoff", "measure_power"],
     "NLPM" : ["onoff", "measure_power"],
     //Remotes
+
 }
 
 const capabilitiesOptionsPerType = {
@@ -47,6 +48,7 @@ const capabilitiesOptionsPerType = {
     "NLPO" : {"onoff" : {}},
     "NLP" : {"onoff" : {}},
     "NLPM" : {"onoff" : {}},
+    //Remotes
 }
 
 const deviceCategory = ['lights', 'plugs', 'energymeters', 'remotes', 'heathers', 'automations'];
@@ -57,6 +59,15 @@ class LegrandHomeyConversion{
 
     //Conversion of device's state data for API comprehension
     static deviceStatusToApi  (capabilitiesValues) {
+        let body = {};
+        for (let [key, value] of Object.entries(capabilitiesValues)){
+            if (key === 'dim') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = value);
+            else(body[deviceCapabilityTranslationFromHomeyToAPI[key]] = deviceCapabilityValueTranslationFromHomeyToAPI[value])
+        }
+        return body;
+    }
+
+    static multipleDeviceStatusToApi  (deviceData) {
         let body = {};
         for (let [key, value] of Object.entries(capabilitiesValues)){
             if (key === 'dim') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = value);
@@ -130,8 +141,6 @@ class LegrandHomeyConversion{
             }
         }
     }
-
-
 
 }
 

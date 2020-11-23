@@ -9,7 +9,8 @@ const urlList = {
   PLANT_URL: 'https://api.developer.legrand.com/hc/api/v1.0/plants/{TOPOLOGY}',
   PLANT_URL_STATUS : 'https://api.developer.legrand.com/hc/api/v1.0/plants/{plantId}',
   DEVICE_STATUS: 'https://api.developer.legrand.com/hc/api/v1.0/{DEVICE_TYPE}/addressLocation/plants/{plantId}/modules/parameter/id/value/{moduleId}',
-  TOKEN_BODY: 'grant_type={GRANT_TYPE}&client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&{TOKEN_TYPE}'
+  TOKEN_BODY: 'grant_type={GRANT_TYPE}&client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&{TOKEN_TYPE}',
+  PLANT_DEVICE_STATUS: 'https://api.developer.legrand.com/hc/api/v1.0/{DEVICE_TYPE}/addressLocation/plants/{plantId}'
 };
 
 // Replace in DEVICE_STATUS url the {DEVICE_TYPE} to get the right url for API interaction
@@ -113,8 +114,15 @@ async function QueryDevice(args) {
   const method = args["method"];
   const deviceData = args["DEVICE_MAP"];
   const body = args["VALUE_BODY"];
+  const isMultiple = args["isMultiple"];
+  let url="";
 
-  const url = await replaceValues(urlList['DEVICE_STATUS'], { '{DEVICE_TYPE}': deviceUrlPerType[deviceData['device']], '{plantId}': deviceData['plantId'], '{moduleId}': deviceData['id'] });
+  if (isMultiple) {
+    url = await replaceValues(urlList['DEVICE_STATUS'], { '{DEVICE_TYPE}': deviceUrlPerType[deviceData['device']], '{plantId}': deviceData['plantId'] });
+  }
+  else{
+    url = await replaceValues(urlList['DEVICE_STATUS'], { '{DEVICE_TYPE}': deviceUrlPerType[deviceData['device']], '{plantId}': deviceData['plantId'], '{moduleId}': deviceData['id'] });
+  }
 
   let options = null;
   let headers = null;

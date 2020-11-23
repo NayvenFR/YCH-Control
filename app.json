@@ -1,6 +1,6 @@
 {
   "id": "fr.yelca-m.ychcontrol",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "name": {
@@ -60,7 +60,7 @@
     "url": "https://github.com/NayvenFR/YCH-Control/issues"
   },
   "homeyCommunityTopicId": 34093,
-  "homepage": "https://www.yelca-m.fr",
+  "homepage": "https://www.dev.yelca-m.com",
   "source": "https://github.com/NayvenFR/YCH-Control",
   "support": "mailto:NayvenDev@gmail.com",
   "category": [

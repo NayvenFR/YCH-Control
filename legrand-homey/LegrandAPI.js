@@ -15,7 +15,7 @@ class LegrandAPI {
         return (`[REQUEST ERROR HANDLER] / ERROR CODE : ${message['status']} / DESCRIPTION: ${message['statusText']}, ${json['message']}`);
       }
       else{
-        return (`[REQUEST ERROR HANDLER]:${message['status']}: ${message['statusText']}`);
+        return (`[REQUEST ERROR HANDLER] / ERROR CODE : ${message['status']}: ${message['statusText']}`);
       }
     }
     // la reqête s'est bien déroulée
@@ -105,7 +105,21 @@ class LegrandAPI {
   static setDeviceStatus (auth, deviceData, capabilityValues) {
 
     const body = conversion.deviceStatusToApi(capabilityValues);
-    const args = {"AUTH_MAP" : auth, "DEVICE_MAP" : deviceData, "method" : 'post', "VALUE_BODY": body};
+    const args = {"AUTH_MAP" : auth, "DEVICE_MAP" : deviceData, "method" : 'post', "VALUE_BODY": body, "isMultiple" : false};
+
+    return new Promise((resolve, reject) => {
+      LegrandAPI.globalQuery(LegrandQuery.QueryDevice, args).then(res => {
+        resolve(`Device state changed to :${body}`);
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  }
+
+  static setMultipleDeviceStatus(auth, deviceData) {
+
+    const body = conversion.deviceStatusToApi(capabilityValues);
+    const args = {"AUTH_MAP" : auth, "DEVICE_MAP" : deviceData, "method" : 'post', "VALUE_BODY": body, "isMultiple" : true};
 
     return new Promise((resolve, reject) => {
       LegrandAPI.globalQuery(LegrandQuery.QueryDevice, args).then(res => {

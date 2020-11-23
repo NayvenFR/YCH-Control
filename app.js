@@ -1,8 +1,8 @@
 'use strict';
 
-const Util = require('./legrand-homey/YchUtil');
+const YchApp = require('./legrand-homey/YchApp');
 
-class YchControl extends Util {
+class YchControl extends YchApp {
 
   onInit() {
     this.startupOperations();
