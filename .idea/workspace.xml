@@ -20,14 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9d5a8bc-1c13-440c-b1c6-fced05b415a1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/legrand-homey/LegrandBuffer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/legrand-homey/YchApp.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandRequest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run.zch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.homeychangelog.json" beforeDir="false" afterPath="$PROJECT_DIR$/.homeychangelog.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/YCH-Control.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/YCH-Control.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +55,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="JupyterTrust" id="364bd0e4-95c5-442f-9889-4c4f7e6e6a4f" />
   <component name="ProjectId" id="1ghBZgVlalz9PxwCZCHhAFDdA6A" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -58,7 +75,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/settings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -66,6 +90,34 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/settings" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Run" type="ShConfigurationType">
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/run.zch" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="/bin/zsh" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="ShConfigurationType">
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/run.zch" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="/bin/zsh" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -93,6 +145,25 @@
       <workItem from="1600353050613" duration="27000" />
       <workItem from="1601309118139" duration="742000" />
       <workItem from="1601386513802" duration="16405000" />
+      <workItem from="1608035045032" duration="2981000" />
+      <workItem from="1608113034445" duration="5045000" />
+      <workItem from="1608192867656" duration="573000" />
+      <workItem from="1608801921953" duration="16827000" />
+      <workItem from="1609237695007" duration="17220000" />
+      <workItem from="1609754477351" duration="64000" />
+      <workItem from="1609754629111" duration="273000" />
+      <workItem from="1609754996666" duration="42000" />
+      <workItem from="1611258728026" duration="420000" />
+      <workItem from="1613484132090" duration="60000" />
+      <workItem from="1613484229325" duration="174000" />
+      <workItem from="1614159489216" duration="2584000" />
+      <workItem from="1616402871556" duration="1101000" />
+      <workItem from="1616404856505" duration="1056000" />
+      <workItem from="1616424972944" duration="806000" />
+      <workItem from="1617159083011" duration="45000" />
+      <workItem from="1617536859101" duration="547000" />
+      <workItem from="1617537489743" duration="14924000" />
+      <workItem from="1617563642680" duration="2236000" />
     </task>
     <servers />
   </component>
@@ -111,27 +182,12 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598799966615">
-      <screen x="0" y="23" width="1440" height="877" />
-    </state>
-    <state x="184" y="123" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1440.877@0.23.1440.877" timestamp="1598799966615" />
-    <state x="408" y="204" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1600352887525">
-      <screen x="0" y="23" width="1440" height="877" />
-    </state>
-    <state x="408" y="204" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.877@0.23.1440.877" timestamp="1600352887525" />
-    <state x="385" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1601389975242">
-      <screen x="0" y="23" width="1440" height="877" />
-    </state>
-    <state x="385" y="213" width="670" height="676" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1601389975242" />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/legrand-homey/YchUtil.js</url>
           <line>153</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

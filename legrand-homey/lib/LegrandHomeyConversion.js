@@ -8,22 +8,34 @@ const LegrandModule = require('./LegrandModule');
 
 const deviceCapabilityTranslationFromHomeyToAPI = {
     'onoff': 'status',
-    'dim' : 'level'
+    'dim' : 'level',
+    'windowcoverings_state' : 'level',
+    'thermostat_mode' : 'mode'
 };
 const deviceCapabilityValueTranslationFromHomeyToAPI = {
     true: 'on',
     false: 'off',
+    'up' : 100,
+    'down' : 0,
+    'idle' : 50,
+    'heat' : 'comfort',
+    'cool' : 'away',
+    'off': 'frost_guard',
 };
 
 const deviceCapabilityTranslationFromApiToHomey = {
     'status': 'onoff',
-    'level' : 'dim',
+    'level' : ['dim', 'windowcoverings_state'],
     'consumptions' : 'measure_power',
-    'reachable' : 'avaibility'
+    'reachable' : 'avaibility',
+    "mode" : 'thermostat_mode'
 };
 const deviceCapabilityValueTranslationFromApiToHomey = {
     'on': true,
-    'off': false
+    'off': false,
+    'frost_guard' : 'off',
+    'away' : 'cool',
+    'comfort':'heat'
 };
 
 const capabilitiesPerType = {
@@ -35,7 +47,9 @@ const capabilitiesPerType = {
     "NLPO" : ["onoff", "measure_power"],
     "NLP" : ["onoff", "measure_power"],
     "NLPM" : ["onoff", "measure_power"],
-    //Remotes
+    "NLC" : {'plug' : ["onoff", "measure_power"], 'heater' : ["thermostat_mode", "measure_power"]},
+    //VR
+    "NLV" : ["windowcoverings_state"]
 
 }
 
@@ -48,10 +62,19 @@ const capabilitiesOptionsPerType = {
     "NLPO" : {"onoff" : {}},
     "NLP" : {"onoff" : {}},
     "NLPM" : {"onoff" : {}},
-    //Remotes
+    "NLC" : {'plug' : {"onoff" : {}} ,'heater' : {"thermostat_mode" : {}}},
+    //VR
+    "NLV" : {"windowcoverings_state": {}}
 }
 
-const deviceCategory = ['lights', 'plugs', 'energymeters', 'remotes', 'heathers', 'automations'];
+function jsonConcat(o1, o2) {
+    for (var key in o2) {
+        o1[key] = o2[key];
+    }
+    return o1;
+}
+
+const deviceCategory = ['lights', 'plugs', 'energymeters', 'remotes', 'heaters', 'automations'];
 
 class LegrandHomeyConversion{
 
@@ -67,21 +90,31 @@ class LegrandHomeyConversion{
         return body;
     }
 
-    static multipleDeviceStatusToApi  (deviceData) {
+    static multipleDeviceStatusToApi  (ids, request) {
         let body = {};
-        for (let [key, value] of Object.entries(capabilitiesValues)){
-            if (key === 'dim') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = value);
-            else(body[deviceCapabilityTranslationFromHomeyToAPI[key]] = deviceCapabilityValueTranslationFromHomeyToAPI[value])
-        }
-        return body;
+        let deviceData = {"device" : request.deviceType, "plantId" : request.plantId};
+
+        body['ids'] = ids;
+
+        body = jsonConcat(body, LegrandHomeyConversion.deviceStatusToApi(request.capabilityValue));
+
+        return [body, deviceData];
     }
+
     //Function that extract data from api request for device statuses for homey capabilities
     static wrapDeviceData(json){
         let res = {};
         for (let [key, value] of Object.entries(deviceCapabilityTranslationFromApiToHomey)){
             if (key === 'consumptions' && json[key] !== undefined) (res[value] = json[key][0]['value']);
             else if (key === 'reachable') (res[value] = json[key]);
-            else if (key === 'level' && json[key] !== undefined) (res[value] = json[key]);
+            //VR
+            else if (key === 'level' && json[key] !== undefined && json.hasOwnProperty('step')) {
+                if (json[key] === 0) {res[value[1]] = 'down';}
+                else if (json[key] === 100) {res[value[1]] = 'up';}
+                else if (json[key] === 50) {res[value[1]] = 'idle';}
+            }
+            //Dimmer
+            else if (key === 'level' && json[key] !== undefined) (res[value[0]] = json[key]);
             else if (json[key] !== undefined) (res[value] = deviceCapabilityValueTranslationFromApiToHomey[json[key]]);
         }
         return res;
@@ -96,29 +129,44 @@ class LegrandHomeyConversion{
         }
         return LegrandHomeyConversion.wrapDeviceData(res);
     }
-    //The same as before but the data is differently wrapped
+    //The same as before but the input data is differently wrapped
     static plantDeviceStatusFromApi(json, emitter){
         const res = json['modules'];
         for (let key of Object.keys(res)){
-            if (key !== 'automations'){
-                for (let item of res[key]){
-                    const moduleId = item['sender']['plant']['module']['id'];
-                    emitter.emit('state_device_changed', moduleId, LegrandHomeyConversion.wrapDeviceData(item));
-                }
+            for (let item of res[key]){
+                const moduleId = item['sender']['plant']['module']['id'];
+                emitter.emit('state_device_changed', moduleId, LegrandHomeyConversion.wrapDeviceData(item));
             }
         }
     }
 
     //For LegrandDriver
     static wrapModuleData(module){
+
+        let capabilities = {};
+        let capabilitiesOptions = {};
+
+        if (module.device === 'heater' && module.hwType === 'NLC'){
+            capabilities = capabilitiesPerType[module.hwType]['heater'];
+            capabilitiesOptions = capabilitiesOptionsPerType[module.hwType]['heater'];
+        }
+        else if (module.device === 'plug' && module.hwType === 'NLC'){
+            capabilities = capabilitiesPerType[module.hwType]['plug'];
+            capabilitiesOptions = capabilitiesOptionsPerType[module.hwType]['plug'];
+        }
+        else {
+            capabilities = capabilitiesPerType[module.hwType];
+            capabilitiesOptions = capabilitiesOptionsPerType[module.hwType];
+        }
+
         const form = {
             name: module.name,
             data: {
                 id: module.id,
             },
             store: { hwType: module.hwType, plantId: module.plantId, device: module.device },
-            capabilities : capabilitiesPerType[module.hwType],
-            capabilitiesOptions: capabilitiesOptionsPerType[module.hwType]
+            capabilities : capabilities,
+            capabilitiesOptions: capabilitiesOptions
         }; // fin form
 
         return form;

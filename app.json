@@ -1,6 +1,6 @@
 {
   "id": "fr.yelca-m.ychcontrol",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "name": {
@@ -134,6 +134,66 @@
       "images": {
         "large": "/drivers/socketdriver/assets/images/large.jpg",
         "small": "/drivers/socketdriver/assets/images/small.jpg"
+      }
+    },
+    {
+      "id": "rollershutterdriver",
+      "name": {
+        "en": "Roller Shutter",
+        "fr": "Volet Roulant"
+      },
+      "class": "windowcoverings",
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "capabilities": [],
+      "images": {
+        "large": "/drivers/roller-shutter/assets/images/large.png",
+        "small": "/drivers/roller-shutter/assets/images/small.png"
+      }
+    },
+    {
+      "id": "heaterdriver",
+      "name": {
+        "en": "Heater",
+        "fr": "Radiateur"
+      },
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "class": "heater",
+      "capabilities": [],
+      "images": {
+        "large": "/drivers/heater/assets/images/large.png",
+        "small": "/drivers/heater/assets/images/small.png"
       }
     }
   ]

@@ -22,6 +22,7 @@ const deviceUrlPerType = {
   heater: 'heater/comfort',
   remote: 'remote/remote',
   energymeter: 'meter/energy',
+  automation: 'automation/automation',
 };
 
 function replaceValues(url, values) {
@@ -118,7 +119,7 @@ async function QueryDevice(args) {
   let url="";
 
   if (isMultiple) {
-    url = await replaceValues(urlList['DEVICE_STATUS'], { '{DEVICE_TYPE}': deviceUrlPerType[deviceData['device']], '{plantId}': deviceData['plantId'] });
+    url = await replaceValues(urlList['PLANT_DEVICE_STATUS'], { '{DEVICE_TYPE}': deviceUrlPerType[deviceData['device']], '{plantId}': deviceData['plantId'] });
   }
   else{
     url = await replaceValues(urlList['DEVICE_STATUS'], { '{DEVICE_TYPE}': deviceUrlPerType[deviceData['device']], '{plantId}': deviceData['plantId'], '{moduleId}': deviceData['id'] });

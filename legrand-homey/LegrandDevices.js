@@ -57,19 +57,17 @@ class LegrandDevices {
             resolve('['+name+'] / '+'Statuses correclty sets');
         });
     }
+
     static refreshDeviceStatus(HomeyDevice){
-        HomeyDevice.homey.app.refreshAccessToken().then(auth => {
-            HomeyDevice.homey.app.requestBuffer.getRequestBuffer(HomeyDevice.data, auth).catch(err => HomeyDevice.log(err));
-        }).catch(err => HomeyDevice.log(err))
+        HomeyDevice.homey.app.legrandBuffer.getRequestBuffer(HomeyDevice.data).catch(err => HomeyDevice.log(err));
     }
+
     static getDeviceStatus(HomeyDevice) {
-        HomeyDevice.homey.app.refreshAccessToken().then(auth => {
-            HomeyDevice.homey.app.requestBuffer.getRequestBuffer(HomeyDevice.data, auth).then(res => {
-                LegrandDevices.setStatus(HomeyDevice, res).then(mess => {
-                    HomeyDevice.log(mess);
-                }).catch(err => HomeyDevice.log(err));
+        HomeyDevice.homey.app.legrandBuffer.getRequestBuffer(HomeyDevice.data).then(res => {
+            LegrandDevices.setStatus(HomeyDevice, res).then(mess => {
+                HomeyDevice.log(mess);
             }).catch(err => HomeyDevice.log(err));
-        }).catch(err => HomeyDevice.log(err))
+        }).catch(err => HomeyDevice.log(err));
 }
 
     static registerDeviceCapabilitiesListener(HomeyDevice){
@@ -89,13 +87,9 @@ class LegrandDevices {
     }
     static async onCapabilityChange(HomeyDevice, capabilityValues) {
         return new Promise((resolve, reject) => {
-            HomeyDevice.homey.app.refreshAccessToken().then(async auth => {
-                HomeyDevice.homey.app.requestBuffer.postRequestBuffer(HomeyDevice.data, capabilityValues, auth).then(res => {
-                    resolve(res);
-                }).catch(err => reject(err));
-            }).catch(err => {
-                reject(err);
-            });
+            HomeyDevice.homey.app.legrandBuffer.postRequestBuffer(HomeyDevice.data, capabilityValues).then(res => {
+                resolve(res);
+            }).catch(err => reject(err));
         });
     }
     static onRefreshDeviceStatus(HomeyDevice, data) {
@@ -103,6 +97,7 @@ class LegrandDevices {
             HomeyDevice.log(mess);
         }).catch(err => HomeyDevice.log(err));
     }
+
     static getDeviceMap(HomeyDevice) {
         const data = [HomeyDevice.getData(), HomeyDevice.getStore()];
         let res = {};
