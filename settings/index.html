@@ -6,20 +6,100 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <style>
+
+        .popup {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 160px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+        }
+
+        /* Popup arrow */
+        .popup .popuptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+        /* Add animation (fade in the popup) */
+        @-webkit-keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity:1 ;}
+        }
+
+        ul#console {
+            list-style-type: none;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            line-height: 25px;
+            padding-left: 5px;
+        }
+        ul#console li {
+            border-bottom: solid 1px #80808038;
+        }
+    </style>
+
 </head>
 <body>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h3 class="text-center" data-i18n="settings.title">
-            </h3>
-            <p class="text-center" data-i18n="settings.subtitle">
-            </p>
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a id= "settings-page" class="nav-link active" href="#">Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a id="logs" class="nav-link" href="#">Error Logs</a>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
+    <div id= "setpage" class="row">
+        <div class="col-md-12">
+
+            <p class="text-center" data-i18n="settings.subtitle">
+            </p>
+
             <fieldset id="preferences">
                 <legend data-i18n="settings.sync_message" class="text-center"></legend>
 
@@ -27,10 +107,13 @@
                 <label for="sync_speed" data-i18n="settings.sync_recom"></label>
                 <input id="sync_speed" type="text" value=""/>
 
-                <button id="saveSyncSpeed" class="left" style="display:block" data-i18n="settings.save_preferences" ></button>
+                <div class = "popup align-content-center">
+                    <button id="saveSyncSpeed" class="align-content-center" style="display:block" data-i18n="settings.save_preferences" ></button>
+                    <label id="syncPopup" class="popuptext" data-i18n="settings.okay"></label>
+                </div>
             </fieldset>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <fieldset>
                 <legend data-i18n="settings.delay_message" class="text-center"></legend>
 
@@ -38,11 +121,27 @@
                 <label for="delay" data-i18n="settings.delay_recom"></label>
                 <input id="delay" type="text" value=""/>
 
-                <button id="saveDelay" class="left" style="display:block" data-i18n="settings.save_preferences" ></button>
+                <div class = "popup align-content-center">
+                    <button id="saveDelay" class="align-content-center"style="display:block" data-i18n="settings.save_preferences" ></button>
+                    <label id="delayPopup" class="popuptext" data-i18n="settings.okay"></label>
+                </div>
+
             </fieldset>
         </div>
-    </div>
-    <div class="row">
+        <div class="col-md-12">
+            <fieldset>
+                <legend data-i18n="settings.send_message" class="text-center"></legend>
+
+                <label for="send" data-i18n="settings.send"></label>
+                <label for="send" data-i18n="settings.send_recom"></label>
+                <input id="send" type="text" value=""/>
+
+                <div class = "popup align-content-center">
+                    <button id="saveSend" class="align-content-center" style="display:block" data-i18n="settings.save_preferences" ></button>
+                    <label id="sendPopup" class="popuptext" data-i18n="settings.okay"></label>
+                </div>
+            </fieldset>
+        </div>
         <div class="col-md-12">
             <fieldset>
                 <legend data-i18n="settings.count" class="text-center"></legend>
@@ -51,22 +150,46 @@
                 <output id="counter">
                 </output>
 
-                <button id="resetCount" class="left" style="display:block" data-i18n="settings.reset" ></button>
+                <div class = "popup align-content-center">
+                    <button id="resetCount" class="align-content-center" style="display:block" data-i18n="settings.reset" ></button>
+                    <label id="resetPopup" class="popuptext" data-i18n="settings.okay"></label>
+                </div>
             </fieldset>
         </div>
     </div>
+    <div id="logpage" class="row">
+        <div class="col-md-12">
+            <ul id="console"></ul>
+    </div>
 </div>
-
+</div>
 <script type="text/javascript">
+
+    function log(txt){
+        var newLine = document.createElement("li");
+        newLine.innerHTML = (typeof txt === 'string') ? txt : JSON.stringify(txt, null, 4);
+        document.querySelector('#console').appendChild(newLine);
+    }
+
+    function myPopup(id) {
+        var popup = document.getElementById(id);
+        popup.classList.toggle("show");
+    }
+
     function onHomeyReady(Homey) {
         let syncButton = document.getElementById('saveSyncSpeed');
         let delayButton = document.getElementById('saveDelay');
         let resetButton = document.getElementById('resetCount');
+        let sendButton = document.getElementById('saveSend');
 
         let syncSpeedEl = document.getElementById('sync_speed');
         let delayEl = document.getElementById('delay');
-
         let counterEl = document.getElementById('counter');
+        let sendEl = document.getElementById('send');
+
+        let settingPageButton = document.getElementById('settings-page');
+        let logsPageButton = document.getElementById('logs');
+        let logs = null;
 
         Homey.get('sync_speed', function (err, syncSpeed) {
             if (err) return Homey.alert(err);
@@ -83,24 +206,71 @@
             counterEl.value = count;
         });
 
+        Homey.get('send_speed', function (err, sendSpeed) {
+            if (err) return Homey.alert(err);
+            sendEl.value = sendSpeed/1000;
+        });
+
         Homey.ready();
 
         syncButton.addEventListener('click', function () {
+            let pop = document.getElementById("syncPopup");
+            pop.classList.toggle("show");
             Homey.set('sync_speed', syncSpeedEl.value * 1000, function (err) {
                 if (err) return Homey.alert(err);
             });
         })
 
         delayButton.addEventListener('click', function () {
+            let pop = document.getElementById("delayPopup");
+            pop.classList.toggle("show");
             Homey.set('delay_speed', delayEl.value * 1000, function (err) {
                 if (err) return Homey.alert(err);
             });
         })
 
         resetButton.addEventListener('click', function () {
+            let pop = document.getElementById("resetPopup");
+            pop.classList.toggle("show");
             Homey.set('requestsCounts', 0, function (err) {
                 if (err) return Homey.alert(err);
             });
+        })
+
+        sendButton.addEventListener('click', function () {
+            let pop = document.getElementById("sendPopup");
+            pop.classList.toggle("show");
+            Homey.set('send_speed', sendEl.value * 1000, function (err) {
+                if (err) return Homey.alert(err);
+            });
+        })
+
+        settingPageButton.addEventListener('click', function (){
+            logsPageButton.className = "nav-link";
+            settingPageButton.className = "nav-link active";
+            document.getElementById("logpage").hidden = true;
+            document.getElementById("setpage").hidden = false;
+        })
+
+        logsPageButton.addEventListener('click', function (){
+
+            Homey.get('log-file', function (err, logFile) {
+                logs = logFile;
+                if (err) return Homey.alert(err);
+
+            });
+
+            logsPageButton.className = "nav-link active";
+            settingPageButton.className = "nav-link";
+
+            document.getElementById("setpage").hidden = true;
+            document.getElementById("logpage").hidden = false;
+
+            if(logs === {} || logs === null || logs === undefined){
+                log("Nothing to show...")
+            }else{
+                log(logs);
+            }
         })
 
     }

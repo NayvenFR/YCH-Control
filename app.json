@@ -1,12 +1,13 @@
 {
   "id": "fr.yelca-m.ychcontrol",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "name": {
     "en": "YCH Control",
     "fr": "YCH Control"
   },
+  "brandColor": "#FF3F13",
   "description": {
     "en": "Legrand® Home + Control for Homey",
     "fr": "Legrand® Home + Control pour Homey"
@@ -34,6 +35,143 @@
       "YCH",
       "Volets",
       "Roulants"
+    ]
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "onmode_comfort",
+        "title": {
+          "en": "Comfort mode",
+          "fr" : "Mode confort"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "my_device",
+            "filter": "driver_id=wiredpilotdriver"
+          }
+        ]
+      },
+      {
+        "id": "onmode_eco",
+        "title": {
+          "en": "Eco mode",
+          "fr": "Mode eco"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "my_device",
+            "filter": "driver_id=wiredpilotdriver"
+          }
+        ]
+      },
+      {
+        "id": "onmode_frost",
+        "title": {
+          "en": "Frost-guard mode",
+          "fr": "Mode hors-gel"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "my_device",
+            "filter": "driver_id=wiredpilotdriver"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "onmode_x",
+        "title": {
+          "en": "State is...",
+          "fr": "L'état est..."
+        },
+        "titleFormatted": {
+          "en": "State !{{is|isn't}} [[state]]",
+          "fr": "L'état !{{est|n'est pas}} [[state]]"
+        },
+        "args": [
+          {
+            "name": "state",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "frost",
+                "label": {
+                  "en": "Frost-guard",
+                  "fr": "Hors-gel"
+                }
+              },
+              {
+                "id": "comfort",
+                "label": {
+                  "en": "Comfort",
+                  "fr": "Confort"
+                }
+              },
+              {
+                "id": "eco",
+                "label": {
+                  "en": "Eco",
+                  "fr": "Eco"
+                }
+              }
+            ]
+          },
+          {
+            "type": "device",
+            "name": "my_device",
+            "filter": "driver_id=wiredpilotdriver"
+          }
+        ]
+      }
+    ],
+    "actions" : [
+      {
+        "id": "start_frost",
+        "title": {
+          "en": "Set frost-guard mode",
+          "fr": "Activer le mode hors-gel"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "my_device",
+            "filter": "driver_id=wiredpilotdriver"
+          }
+        ]
+      },
+      {
+        "id": "start_eco",
+        "title": {
+          "en": "Set eco mode",
+          "fr": "Activer le mode eco"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "my_device",
+            "filter": "driver_id=wiredpilotdriver"
+          }
+        ]
+      },
+      {
+        "id": "start_comfort",
+        "title": {
+          "en": "Set comfort mode",
+          "fr": "Activer le mode confort"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "my_device",
+            "filter": "driver_id=wiredpilotdriver"
+          }
+        ]
+      }
     ]
   },
   "contributors": {
@@ -74,6 +212,41 @@
   "author": {
     "name": "YELCA-M",
     "email": "office@yelca-m.fr"
+  },
+  "capabilities": {
+    "wiredpilot_mode": {
+      "type": "enum",
+      "title": {
+        "en": "Pilot wire mode",
+        "fr": "Mode du fil pilot"
+      },
+      "uiComponent": "picker",
+      "getable": true,
+      "setable": true,
+      "values": [
+        {
+          "id": "heat",
+          "title": {
+            "en": "Comfort",
+            "fr": "Confort"
+          }
+        },
+        {
+          "id": "cool",
+          "title": {
+            "en": "Eco ",
+            "fr": "Eco"
+          }
+        },
+        {
+          "id": "off",
+          "title": {
+            "en": "Frost-guard",
+            "fr": "Hors-gel"
+          }
+        }
+      ]
+    }
   },
   "drivers": [
     {
@@ -162,15 +335,15 @@
       ],
       "capabilities": [],
       "images": {
-        "large": "/drivers/roller-shutter/assets/images/large.png",
-        "small": "/drivers/roller-shutter/assets/images/small.png"
+        "large": "/drivers/rollershutterdriver/assets/images/large.jpg",
+        "small": "/drivers/rollershutterdriver/assets/images/small.jpg"
       }
     },
     {
-      "id": "heaterdriver",
+      "id": "wiredpilotdriver",
       "name": {
-        "en": "Heater",
-        "fr": "Radiateur"
+        "en": "Pilot Wire",
+        "fr": "Fil Pilote"
       },
       "pair": [
         {
@@ -189,11 +362,11 @@
           "template": "add_devices"
         }
       ],
-      "class": "heater",
+      "class": "other",
       "capabilities": [],
       "images": {
-        "large": "/drivers/heater/assets/images/large.png",
-        "small": "/drivers/heater/assets/images/small.png"
+        "large": "/drivers/wiredpilotdriver/assets/images/large.jpg",
+        "small": "/drivers/wiredpilotdriver/assets/images/small.jpg"
       }
     }
   ]

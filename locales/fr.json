@@ -11,6 +11,10 @@
     "delay_recom" : "Recommandé : 5 secondes (dépends fortement de la vitesse de votre connexion internet)",
     "count": "Compteur de requêtes",
     "reset" : "Reset",
-    "count_message" : "Cette valeur est importante, car au delà de 500 requêtes/jour, l'application ne pourra plus dialoguer avec Legrand puisqu'ils imposent une limite de requêtes."
+    "count_message" : "Cette valeur est importante, car au delà de 500 requêtes/jour, l'application ne pourra plus dialoguer avec Legrand puisqu'ils imposent une limite de requêtes.",
+    "send_message": "Délai mémoire tampon des requêtes",
+    "send": "Change le délai entre l'action utilisateur et l'envoi effectif de l'ordre vers l'API Legrand (en secondes)",
+    "send_recom": "Recommandé : 2 secondes",
+    "okay": "Sauvegardé !"
   }
 }

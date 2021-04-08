@@ -19,25 +19,23 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a9d5a8bc-1c13-440c-b1c6-fced05b415a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/legrand-homey/LegrandBuffer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/legrand-homey/YchApp.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandRequest.js" afterDir="false" />
+    <list default="true" id="a9d5a8bc-1c13-440c-b1c6-fced05b415a1" name="Default Changelist" comment="Version 1.0.5a">
       <change afterPath="$PROJECT_DIR$/run.zch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.homeychangelog.json" beforeDir="false" afterPath="$PROJECT_DIR$/.homeychangelog.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/YCH-Control.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/YCH-Control.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/lightdriver/device.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/lightdriver/device.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/socketdriver/device.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/device.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandBuffer.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandBuffer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/YchApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/YchApp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/locales/fr.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/fr.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/settings/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +69,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -83,6 +82,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -93,6 +93,7 @@
   </component>
   <component name="RunManager">
     <configuration name="Run" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/run.zch" />
       <option name="SCRIPT_OPTIONS" value="" />
@@ -102,10 +103,12 @@
       <option name="INTERPRETER_PATH" value="/bin/zsh" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
       <envs />
       <method v="2" />
     </configuration>
     <configuration default="true" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/run.zch" />
       <option name="SCRIPT_OPTIONS" value="" />
@@ -115,6 +118,7 @@
       <option name="INTERPRETER_PATH" value="/bin/zsh" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
       <envs />
       <method v="2" />
     </configuration>
@@ -163,8 +167,26 @@
       <workItem from="1617159083011" duration="45000" />
       <workItem from="1617536859101" duration="547000" />
       <workItem from="1617537489743" duration="14924000" />
-      <workItem from="1617563642680" duration="2236000" />
+      <workItem from="1617563642680" duration="5084000" />
+      <workItem from="1617639120131" duration="3977000" />
+      <workItem from="1617700321738" duration="4490000" />
+      <workItem from="1617705468777" duration="4631000" />
+      <workItem from="1617717743032" duration="6534000" />
+      <workItem from="1617776362784" duration="5192000" />
+      <workItem from="1617791517778" duration="1063000" />
+      <workItem from="1617804786726" duration="857000" />
+      <workItem from="1617810929153" duration="7844000" />
+      <workItem from="1617822456238" duration="599000" />
+      <workItem from="1617873044604" duration="1798000" />
     </task>
+    <task id="LOCAL-00001" summary="Version 1.0.5a">
+      <created>1617573320727</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1617573320728</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,6 +203,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Version 1.0.5a" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 1.0.5a" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

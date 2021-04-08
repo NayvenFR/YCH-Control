@@ -9,37 +9,39 @@ class LegrandBuffer {
         this.pTimer;
         this.gTimer;
 
-        //Array of request per device Ids
+        //GET REQUEST VAR
         this.getBuffer = {"requestPerId" : {}, "moduleDataPerId" : {}};
         this.lastModuleId2 = null;
         this.getReqCount = 0;
 
         //POST REQUEST VAR
-        this.postBuffer = {"idPerDevice" : {}, "requestPerId" : {}, "devicePerId" : []};
-        this.lastModuleId = null;
+        this.postBuffer = {"idPerDevice" : {}, "requestPerId" : {}};
+        this.lastModuleId = [];
         this.postReqCount = 0;
 
         this.ych = HomeyApp;
     }
 
     //GROUPE LES DEVICE ID PAR ID DE REQUETES
-    static async orderIds(){
-        for (let key of Object.keys(this.postBuffer.requestPerId)){
+    static orderIds(key){
+        return new Promise(resolve => {
             let ids = [];
             for (let [id, val] of Object.entries(this.postBuffer.idPerDevice)){
-                if (key === val){ids.push(id)}
+                if (key == val) {ids.push(id);}
             }
-            this.postBuffer.devicePerId[key] = ids;
-        }
+            resolve(ids);
+        })
     }
 
     //VIDE LE BUFFER
     static clearPostBuffer(){
-        this.postBuffer = {"idPerDevice" : {}, "requestPerId" : {}, "devicePerId" : []};
+        this.postBuffer = {"idPerDevice" : {}, "requestPerId" : {}};
+        this.lastModuleId = [];
         this.postReqCount = 0;
     }
     static clearGetBuffer(){
         this.getBuffer = {"requestPerId" : {}, "moduleDataPerId" : {}};
+        this.lastModuleId2 = null;
         this.getReqCount = 0;
     }
 
@@ -57,10 +59,10 @@ class LegrandBuffer {
         this.ych.homey.clearTimeout(this.pTimer);
 
         const req = new request(data.device, data.plantId, capabilityValue);
-        if (data.id !== this.lastModuleId){
+        if (!this.lastModuleId.includes(data.id)){
+            this.lastModuleId.push(data.id);
             this.postReqCount = this.postReqCount + 1;
         }
-        this.lastModuleId = data.id;
         let key = this.checkRequestExist(this.postBuffer,req);
 
         //On check si la requete existe dejà
@@ -82,30 +84,32 @@ class LegrandBuffer {
                     context.clearPostBuffer();
                     reject(err)
                 });
-            }, 2500);
+            }, this.ych.homey.app.sendSpeed);
         });
 
     }
 
     static postRequest() {
 
-        return new Promise((resolve, reject) =>  {
+        return new Promise(async (resolve, reject) =>  {
             if (this.postReqCount >= 2) {
-                this.orderIds().then(res =>{
                     for (let [key, request] of Object.entries(this.postBuffer.requestPerId)) {
-                        this.ych.homey.app.refreshAccessToken().then(async auth =>{
-                            await this.ych.homey.app.legrand_api.setMultipleDeviceStatus(auth, request, this.postBuffer.devicePerId[key]).then(res => {
-                                this.ych.homey.app.log(res);
-                            }).catch(err => reject(err));
-                        }).catch(err => reject(err));
+                        await this.orderIds(key).then(ids => {
+                            if (ids !== []){
+                                this.ych.homey.app.refreshAccessToken().then(async auth =>{
+                                    await this.ych.homey.app.legrand_api.setMultipleDeviceStatus(auth, request, ids).then(res => {
+                                        this.ych.homey.app.log(res);
+                                    }).catch(err => reject(err));
+                                }).catch(err => reject(err));
+                            }
+                        })
                     }
                     this.ych.homey.app.emitter.emit('refresh-status');
-                });
             }
             else
             {
-                const body = this.postBuffer.requestPerId[0].capabilityValue;
-                const deviceData = {"device" : this.postBuffer.requestPerId[0].deviceType, "plantId" : this.postBuffer.requestPerId[0].plantId, "id" : this.lastModuleId};
+                const body = this.postBuffer.requestPerId[1].capabilityValue;
+                const deviceData = {"device" : this.postBuffer.requestPerId[1].deviceType, "plantId" : this.postBuffer.requestPerId[1].plantId, "id" : this.lastModuleId};
                 this.ych.homey.app.refreshAccessToken().then(async auth => {
                     await this.ych.homey.app.legrand_api.setDeviceStatus(auth, deviceData, body).then(res => {
                         this.ych.homey.app.log(res);

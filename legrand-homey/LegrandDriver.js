@@ -26,7 +26,10 @@ class LegrandDriver {
           })
           .on('code', async code => {
             await LegrandDriver.driverGetAccessToken(HomeyDriver, code)
-                .catch(err => HomeyDriver.log(err));
+                .catch(err => {
+                  HomeyDriver.log(err);
+                  HomeyDriver.logger.log(err);
+                });
             await session.emit('authorized');
           });
     }
@@ -35,7 +38,10 @@ class LegrandDriver {
     //On récupère par la meme la map des plants afin de l'enregistrer en mémoire
     session.setHandler('list_devices', async data => {
       [devices, plants] = await LegrandDriver.driverGetDevicesList(HomeyDriver)
-          .catch(err => HomeyDriver.log(err));
+          .catch(err => {
+            HomeyDriver.log(err);
+            HomeyDriver.logger.log(err);
+          });
       LegrandDriver.storePlantAndDevicesData(HomeyDriver, plants);
       //On envoie au front end la liste des devices
       await session.emit('list_devices', devices);

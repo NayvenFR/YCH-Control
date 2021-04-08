@@ -17,6 +17,10 @@ class LegrandDevices {
         HomeyDevice.log(HomeyDevice.getName(), 'has been inited');
     }
 
+    static onAddedSync(HomeyDevice){
+        LegrandDevices.getDeviceStatus(HomeyDevice);
+    }
+
     static setAvaibility(HomeyDevice, res ){
         return new Promise((resolve, reject) => {
             if (res === true) {
@@ -52,6 +56,10 @@ class LegrandDevices {
                 else {
                     HomeyDevice.setCapabilityValue(key, value).catch(err => reject(err));
                     HomeyDevice.log('['+name+'] / '+key +': ', value);
+                    //PERMET DE TRIGGER LES FLOWS POUR FILS PILOTES
+                    if (HomeyDevice.data.device === "heater" && key === "wiredpilot_mode"){
+                        HomeyDevice.triggerMyFlow(value);
+                    }
                 }
             }
             resolve('['+name+'] / '+'Statuses correclty sets');
@@ -59,15 +67,24 @@ class LegrandDevices {
     }
 
     static refreshDeviceStatus(HomeyDevice){
-        HomeyDevice.homey.app.legrandBuffer.getRequestBuffer(HomeyDevice.data).catch(err => HomeyDevice.log(err));
+        HomeyDevice.homey.app.legrandBuffer.getRequestBuffer(HomeyDevice.data).catch(err => {
+            HomeyDevice.log(err);
+            HomeyDevice.homey.app.logger.log(err);
+        });
     }
 
     static getDeviceStatus(HomeyDevice) {
         HomeyDevice.homey.app.legrandBuffer.getRequestBuffer(HomeyDevice.data).then(res => {
             LegrandDevices.setStatus(HomeyDevice, res).then(mess => {
                 HomeyDevice.log(mess);
-            }).catch(err => HomeyDevice.log(err));
-        }).catch(err => HomeyDevice.log(err));
+            }).catch(err => {
+                HomeyDevice.log(err);
+                HomeyDevice.homey.app.logger.log(err);
+            });
+        }).catch(err => {
+            HomeyDevice.log(err);
+            HomeyDevice.homey.app.logger.log(err);
+        });
 }
 
     static registerDeviceCapabilitiesListener(HomeyDevice){
@@ -79,6 +96,7 @@ class LegrandDevices {
                 })
                 .catch(err => {
                     HomeyDevice.log(err);
+                    HomeyDevice.homey.app.logger.log(err);
                     //Lors d'une erreur dans la requête même si l'appareil est dispo il est désactiver
                     //todo : il faut créer une fonction qui lit le contenu de l'érreur et qui traite ça
                     //HomeyDevice.setUnavailable().catch(err => reject(err)); //Peut etre trouver une condition pour éviter des bogues
@@ -95,7 +113,10 @@ class LegrandDevices {
     static onRefreshDeviceStatus(HomeyDevice, data) {
         LegrandDevices.setStatus(HomeyDevice, data).then(mess => {
             HomeyDevice.log(mess);
-        }).catch(err => HomeyDevice.log(err));
+        }).catch(err => {
+            HomeyDevice.log(err)
+            HomeyDevice.homey.app.logger.log(err);
+        });
     }
 
     static getDeviceMap(HomeyDevice) {

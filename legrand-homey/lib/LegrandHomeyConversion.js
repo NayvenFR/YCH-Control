@@ -10,7 +10,7 @@ const deviceCapabilityTranslationFromHomeyToAPI = {
     'onoff': 'status',
     'dim' : 'level',
     'windowcoverings_state' : 'level',
-    'thermostat_mode' : 'mode'
+    'wiredpilot_mode' : 'mode'
 };
 const deviceCapabilityValueTranslationFromHomeyToAPI = {
     true: 'on',
@@ -28,7 +28,7 @@ const deviceCapabilityTranslationFromApiToHomey = {
     'level' : ['dim', 'windowcoverings_state'],
     'consumptions' : 'measure_power',
     'reachable' : 'avaibility',
-    "mode" : 'thermostat_mode'
+    "mode" : 'wiredpilot_mode'
 };
 const deviceCapabilityValueTranslationFromApiToHomey = {
     'on': true,
@@ -43,11 +43,12 @@ const capabilitiesPerType = {
     "NLPT" : ["onoff", "measure_power"],
     "NLM" : ["onoff", "measure_power"],
     "NLF" : ["onoff", "measure_power", "dim"],
+    "NLFN" : ["onoff", "measure_power", "dim"],
     //Plugs
     "NLPO" : ["onoff", "measure_power"],
     "NLP" : ["onoff", "measure_power"],
     "NLPM" : ["onoff", "measure_power"],
-    "NLC" : {'plug' : ["onoff", "measure_power"], 'heater' : ["thermostat_mode", "measure_power"]},
+    "NLC" : {'plug' : ["onoff", "measure_power"], 'heater' : ["measure_power", "wiredpilot_mode"]},
     //VR
     "NLV" : ["windowcoverings_state"]
 
@@ -57,18 +58,19 @@ const capabilitiesOptionsPerType = {
     //Lights
     "NLPT" : {"onoff" : {}},
     "NLM" : {"onoff" : {}},
-    "NLF" : {"onoff" : {}, "dim" :{}},
+    "NLF" : {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1}},
+    "NLFN" : {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1}},
     //Plugs
     "NLPO" : {"onoff" : {}},
     "NLP" : {"onoff" : {}},
     "NLPM" : {"onoff" : {}},
-    "NLC" : {'plug' : {"onoff" : {}} ,'heater' : {"thermostat_mode" : {}}},
+    "NLC" : {'plug' : {"onoff" : {}} ,'heater' : {}},
     //VR
     "NLV" : {"windowcoverings_state": {}}
 }
 
 function jsonConcat(o1, o2) {
-    for (var key in o2) {
+    for (let key in o2) {
         o1[key] = o2[key];
     }
     return o1;

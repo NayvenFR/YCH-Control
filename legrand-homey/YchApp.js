@@ -4,11 +4,13 @@ const Homey = require('homey');
 const events = require('events');
 const LegrandAPI = require('/legrand-homey/LegrandAPI');
 const LegrandBuffer = require('/legrand-homey/LegrandBuffer');
+const Logger = require('/legrand-homey/lib/Logger');
 const fullDayMs = 24*60*60*1000;
 const access_Token_Timeout = 3600 * 1000;
 const refresh_Token_Timeout = 7776000 * 1000;
 const default_sync_speed = 10*60000;
 const default_delay_speed = 5000;
+const default_send_speed = 2000;
 
 class YchApp extends Homey.App {
 
@@ -30,6 +32,7 @@ class YchApp extends Homey.App {
         //Instanciations globale de cette classe statique car elle intègre les méthodes pour intéragir avec l'api
         this.legrand_api = LegrandAPI;
         this.legrandBuffer = LegrandBuffer;
+        this.logger = new Logger(this);
 
         this.legrandBuffer.startup(this);
 
@@ -88,6 +91,14 @@ class YchApp extends Homey.App {
             this.delaySpeed = this.getStoredSettings('delay_speed');
         }
 
+        if (this.getStoredSettings('send_speed') == null){
+            this.sendSpeed = default_send_speed;
+            this.updateStoredSettings('send_speed', this.sendSpeed);
+        }
+        else{
+            this.sendSpeed = this.getStoredSettings('send_speed');
+        }
+
         const context = this;
         this.homey.settings.on('set', function (key) {
             if (key === 'sync_speed'){
@@ -96,6 +107,9 @@ class YchApp extends Homey.App {
             }
             else if (key === 'delay_speed'){
                 context.delaySpeed = context.getStoredSettings('delay_speed');
+            }
+            else if (key === 'send_speed'){
+                context.sendSpeed = context.getStoredSettings('send_speed');
             }
         })
     }
@@ -123,9 +137,11 @@ class YchApp extends Homey.App {
                         resolve(this.GLOBAL_AUTH_MAP);
                     }).catch(error => {
                         reject(error);
+                        this.logger.log(error);
                     });
                 } else {
                     reject(err);
+                    this.logger.log(err);
                 }
             });
         });
@@ -143,7 +159,7 @@ class YchApp extends Homey.App {
             if (lastToken === undefined || signed === false || accessToken === undefined) {
                 this.log('No tokens stored, setting "signed" parameter to false');
                 this.updateStoredSettings('signed-in', false);
-                reject('log-in');
+                reject('please log-in');
             }
             if (now - lastToken > access_Token_Timeout) {
                 this.log('[TOKEN] Access Token Outated, refreshing tokens ...');

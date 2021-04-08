@@ -10,5 +10,10 @@
   },
   "1.0.3": {
     "en": "Global optimizations"
+  },
+  "1.0.5": {
+    "fr": "Ajout du support des commandes sans fils pour volet roulant, Ajout du support pour sorties de cable sans fil, optimisation globale de l'application et du système de requêtes",
+    "en" : "Added support for wireless controls for rolling shutters, Added support for wireless cable outputs, global optimization of the application and query system"
+
   }
 }

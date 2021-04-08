@@ -1,6 +1,6 @@
 {
   "settings": {
-    "title": "Settings",
+    "title": "Paramètres",
     "subtitle": "Modify app's configuration here",
     "sync_message": "Synchronization interval :",
     "delay_message": "Status feedback delay",
@@ -11,6 +11,10 @@
     "save_preferences": "Save preferences",
     "count": "Requests count",
     "reset" : "Reset",
-    "count_message" : "That value is important because if your number of requests is above 500/day the application may not work anymore."
+    "count_message" : "That value is important because if your number of requests is above 500/day the application may not work anymore.",
+    "send_message": "Request Buffer Delay",
+    "send": "Changes the delay between the user action and the actual sending of the order to the Legrand API (in seconds)",
+    "send_recom": "Recommended : 2 seconds",
+    "okay" : "Saved !"
   }
 }
