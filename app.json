@@ -1,6 +1,6 @@
 {
   "id": "fr.yelca-m.ychcontrol",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "name": {
@@ -31,147 +31,10 @@
       "+",
       "lumière",
       "prise",
-      "connectée",
+      "connecté",
       "YCH",
       "Volets",
       "Roulants"
-    ]
-  },
-  "flow": {
-    "triggers": [
-      {
-        "id": "onmode_comfort",
-        "title": {
-          "en": "Comfort mode",
-          "fr" : "Mode confort"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "my_device",
-            "filter": "driver_id=wiredpilotdriver"
-          }
-        ]
-      },
-      {
-        "id": "onmode_eco",
-        "title": {
-          "en": "Eco mode",
-          "fr": "Mode eco"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "my_device",
-            "filter": "driver_id=wiredpilotdriver"
-          }
-        ]
-      },
-      {
-        "id": "onmode_frost",
-        "title": {
-          "en": "Frost-guard mode",
-          "fr": "Mode hors-gel"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "my_device",
-            "filter": "driver_id=wiredpilotdriver"
-          }
-        ]
-      }
-    ],
-    "conditions": [
-      {
-        "id": "onmode_x",
-        "title": {
-          "en": "State is...",
-          "fr": "L'état est..."
-        },
-        "titleFormatted": {
-          "en": "State !{{is|isn't}} [[state]]",
-          "fr": "L'état !{{est|n'est pas}} [[state]]"
-        },
-        "args": [
-          {
-            "name": "state",
-            "type": "dropdown",
-            "values": [
-              {
-                "id": "frost",
-                "label": {
-                  "en": "Frost-guard",
-                  "fr": "Hors-gel"
-                }
-              },
-              {
-                "id": "comfort",
-                "label": {
-                  "en": "Comfort",
-                  "fr": "Confort"
-                }
-              },
-              {
-                "id": "eco",
-                "label": {
-                  "en": "Eco",
-                  "fr": "Eco"
-                }
-              }
-            ]
-          },
-          {
-            "type": "device",
-            "name": "my_device",
-            "filter": "driver_id=wiredpilotdriver"
-          }
-        ]
-      }
-    ],
-    "actions" : [
-      {
-        "id": "start_frost",
-        "title": {
-          "en": "Set frost-guard mode",
-          "fr": "Activer le mode hors-gel"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "my_device",
-            "filter": "driver_id=wiredpilotdriver"
-          }
-        ]
-      },
-      {
-        "id": "start_eco",
-        "title": {
-          "en": "Set eco mode",
-          "fr": "Activer le mode eco"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "my_device",
-            "filter": "driver_id=wiredpilotdriver"
-          }
-        ]
-      },
-      {
-        "id": "start_comfort",
-        "title": {
-          "en": "Set comfort mode",
-          "fr": "Activer le mode confort"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "my_device",
-            "filter": "driver_id=wiredpilotdriver"
-          }
-        ]
-      }
     ]
   },
   "contributors": {
@@ -214,6 +77,79 @@
     "email": "office@yelca-m.fr"
   },
   "capabilities": {
+    "windowcoverings_level": {
+      "title": {
+        "en": "Window Coverings State",
+        "nl": "Raambekleding Status",
+        "de": "Jalousien-Status",
+        "fr": "Etat des stores",
+        "it": "Stato delle tapparelle",
+        "sv": "Status för fönsterskydd",
+        "no": "Status for vindusbeskyttelse",
+        "es": "Estado de los cobertores de ventanas",
+        "da": "Status for vinduesdække"
+      },
+      "type": "number",
+      "chartType": "stepLine",
+      "min": 0,
+      "max": 1,
+      "decimals": 2,
+      "units": "%",
+      "getable": true,
+      "setable": true,
+      "uiComponent": "slider",
+      "$flow": {
+        "triggers": [
+          {
+            "id": "level_changed",
+            "title": {
+              "en": "Shutter-level changed",
+              "fr": "La hauteur du volet roulant a été modifée"
+            },
+            "tokens": [
+              {
+                "name": "level",
+                "type": "number",
+                "title": {
+                  "en": "Level",
+                  "nl": "Niveau",
+                  "de": "Niveau",
+                  "fr": "Niveau",
+                  "it": "Livello",
+                  "sv": "Nivå",
+                  "no": "Nivå",
+                  "es": "Nivel",
+                  "da": "Niveau"
+                },
+                "example": 0.5
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "id": "level",
+            "title": {
+              "en": "Change level to",
+              "fr": "Mettre la hauteur du volet roulant à "
+            },
+            "args": [
+              {
+                "name": "level",
+                "type": "range",
+                "min": 0,
+                "max": 1,
+                "step": 0.01,
+                "value": 0.5,
+                "label": "%",
+                "labelMultiplier": 100,
+                "labelDecimals": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
     "wiredpilot_mode": {
       "type": "enum",
       "title": {
@@ -245,7 +181,144 @@
             "fr": "Hors-gel"
           }
         }
-      ]
+      ],
+      "$flow": {
+        "triggers": [
+          {
+            "id": "onmode_comfort",
+            "title": {
+              "en": "Comfort mode",
+              "fr": "Mode confort"
+            },
+            "args": [
+              {
+                "type": "device",
+                "name": "my_device",
+                "filter": "driver_id=wiredpilotdriver"
+              }
+            ]
+          },
+          {
+            "id": "onmode_eco",
+            "title": {
+              "en": "Eco mode",
+              "fr": "Mode eco"
+            },
+            "args": [
+              {
+                "type": "device",
+                "name": "my_device",
+                "filter": "driver_id=wiredpilotdriver"
+              }
+            ]
+          },
+          {
+            "id": "onmode_frost",
+            "title": {
+              "en": "Frost-guard mode",
+              "fr": "Mode hors-gel"
+            },
+            "args": [
+              {
+                "type": "device",
+                "name": "my_device",
+                "filter": "driver_id=wiredpilotdriver"
+              }
+            ]
+          }
+        ],
+        "conditions": [
+          {
+            "id": "onmode_x",
+            "title": {
+              "en": "State is...",
+              "fr": "L'état est..."
+            },
+            "titleFormatted": {
+              "en": "State !{{is|isn't}} [[state]]",
+              "fr": "L'état !{{est|n'est pas}} [[state]]"
+            },
+            "args": [
+              {
+                "name": "state",
+                "type": "dropdown",
+                "values": [
+                  {
+                    "id": "frost",
+                    "label": {
+                      "en": "Frost-guard",
+                      "fr": "Hors-gel"
+                    }
+                  },
+                  {
+                    "id": "comfort",
+                    "label": {
+                      "en": "Comfort",
+                      "fr": "Confort"
+                    }
+                  },
+                  {
+                    "id": "eco",
+                    "label": {
+                      "en": "Eco",
+                      "fr": "Eco"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "device",
+                "name": "my_device",
+                "filter": "driver_id=wiredpilotdriver"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "id": "start_frost",
+            "title": {
+              "en": "Set frost-guard mode",
+              "fr": "Activer le mode hors-gel"
+            },
+            "args": [
+              {
+                "type": "device",
+                "name": "my_device",
+                "filter": "driver_id=wiredpilotdriver"
+              }
+            ]
+          },
+          {
+            "id": "start_eco",
+            "title": {
+              "en": "Set eco mode",
+              "fr": "Activer le mode eco"
+            },
+            "args": [
+              {
+                "type": "device",
+                "name": "my_device",
+                "filter": "driver_id=wiredpilotdriver"
+              }
+            ]
+          },
+          {
+            "id": "start_comfort",
+            "title": {
+              "en": "Set comfort mode",
+              "fr": "Activer le mode confort"
+            },
+            "args": [
+              {
+                "type": "device",
+                "name": "my_device",
+                "filter": "driver_id=wiredpilotdriver"
+              }
+            ]
+          }
+        ]
+      }
     }
   },
   "drivers": [
@@ -367,6 +440,36 @@
       "images": {
         "large": "/drivers/wiredpilotdriver/assets/images/large.jpg",
         "small": "/drivers/wiredpilotdriver/assets/images/small.jpg"
+      }
+    },
+    {
+      "id": "energymeterdriver",
+      "name": {
+        "en": "Energy Meter",
+        "fr": "Compteur d'énergie"
+      },
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "class": "sensor",
+      "capabilities": [],
+      "images": {
+        "small": "/drivers/energymeterdriver/assets/images/small.png",
+        "large": "/drivers/energymeterdriver/assets/images/large.png"
       }
     }
   ]
