@@ -10,6 +10,7 @@ const deviceCapabilityTranslationFromHomeyToAPI = {
     'onoff': 'status',
     'dim' : 'level',
     'windowcoverings_state' : 'level',
+    'windowcoverings_level' : 'level',
     'wiredpilot_mode' : 'mode'
 };
 const deviceCapabilityValueTranslationFromHomeyToAPI = {
@@ -25,7 +26,7 @@ const deviceCapabilityValueTranslationFromHomeyToAPI = {
 
 const deviceCapabilityTranslationFromApiToHomey = {
     'status': 'onoff',
-    'level' : ['dim', 'windowcoverings_state'],
+    'level' : ['dim', 'windowcoverings_state', 'windowcoverings_level'],
     'consumptions' : 'measure_power',
     'reachable' : 'avaibility',
     "mode" : 'wiredpilot_mode'
@@ -42,15 +43,22 @@ const capabilitiesPerType = {
     //Lights
     "NLPT" : ["onoff", "measure_power"],
     "NLM" : ["onoff", "measure_power"],
+    "NLL" : ["onoff", "measure_power"],
     "NLF" : ["onoff", "measure_power", "dim"],
     "NLFN" : ["onoff", "measure_power", "dim"],
     //Plugs
     "NLPO" : ["onoff", "measure_power"],
     "NLP" : ["onoff", "measure_power"],
+    "NLPBS": ["onoff", "measure_power"],
     "NLPM" : ["onoff", "measure_power"],
     "NLC" : {'plug' : ["onoff", "measure_power"], 'heater' : ["measure_power", "wiredpilot_mode"]},
     //VR
-    "NLV" : ["windowcoverings_state"]
+    "NLV" : ["windowcoverings_state"],
+    "NLLV" : ["windowcoverings_level"],
+    "NLLM" : ["windowcoverings_state"],
+    "NLVI" : ["windowcoverings_state"],
+    //Energy Meters
+    "NLPC" : ["measure_power"]
 
 }
 
@@ -58,15 +66,23 @@ const capabilitiesOptionsPerType = {
     //Lights
     "NLPT" : {"onoff" : {}},
     "NLM" : {"onoff" : {}},
+    "NLL" : {"onoff" : {}},
     "NLF" : {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1}},
     "NLFN" : {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1}},
     //Plugs
     "NLPO" : {"onoff" : {}},
     "NLP" : {"onoff" : {}},
+    "NLPBS" : {"onoff" : {}},
     "NLPM" : {"onoff" : {}},
     "NLC" : {'plug' : {"onoff" : {}} ,'heater' : {}},
     //VR
-    "NLV" : {"windowcoverings_state": {}}
+    "NLV" : {"windowcoverings_state":{}},
+    "NLLV" : {"windowcoverings_level": {"min":0, "max":100, "step":1}},
+    "NLLM" : {"windowcoverings_state":{}},
+    "NLVI": {"windowcoverings_state":{}},
+    //Energy Meters
+    "NLPC" : {}
+
 }
 
 function jsonConcat(o1, o2) {
@@ -87,7 +103,13 @@ class LegrandHomeyConversion{
         let body = {};
         for (let [key, value] of Object.entries(capabilitiesValues)){
             if (key === 'dim') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = value);
-            else(body[deviceCapabilityTranslationFromHomeyToAPI[key]] = deviceCapabilityValueTranslationFromHomeyToAPI[value])
+            else if (key === 'windowcoverings_state') {
+                if (value === 'up') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = 100);
+                else if (value === 'idle') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = 50);
+                else if (value === 'down') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = 0);
+            }
+            else if (key === 'windowcoverings_level') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = value);
+            else(body[deviceCapabilityTranslationFromHomeyToAPI[key]] = deviceCapabilityValueTranslationFromHomeyToAPI[value]);
         }
         return body;
     }
@@ -114,9 +136,12 @@ class LegrandHomeyConversion{
                 if (json[key] === 0) {res[value[1]] = 'down';}
                 else if (json[key] === 100) {res[value[1]] = 'up';}
                 else if (json[key] === 50) {res[value[1]] = 'idle';}
+                //For VR with position control
+                else{res[value[2]] = json[key]}
             }
             //Dimmer
             else if (key === 'level' && json[key] !== undefined) (res[value[0]] = json[key]);
+            //Others
             else if (json[key] !== undefined) (res[value] = deviceCapabilityValueTranslationFromApiToHomey[json[key]]);
         }
         return res;

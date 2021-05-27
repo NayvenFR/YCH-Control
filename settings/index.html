@@ -166,17 +166,15 @@
 <script type="text/javascript">
 
     function log(txt){
-        var newLine = document.createElement("li");
-        newLine.innerHTML = (typeof txt === 'string') ? txt : JSON.stringify(txt, null, 4);
-        document.querySelector('#console').appendChild(newLine);
-    }
-
-    function myPopup(id) {
-        var popup = document.getElementById(id);
-        popup.classList.toggle("show");
+        if (txt !== null){
+            var newLine = document.createElement("li");
+            newLine.innerHTML = (typeof txt === 'string') ? txt : JSON.stringify(txt, null, 4);
+            document.querySelector('#console').appendChild(newLine);
+        }
     }
 
     function onHomeyReady(Homey) {
+
         let syncButton = document.getElementById('saveSyncSpeed');
         let delayButton = document.getElementById('saveDelay');
         let resetButton = document.getElementById('resetCount');
@@ -252,13 +250,16 @@
             document.getElementById("setpage").hidden = false;
         })
 
+        Homey.on('settings.set', function (param){
+            if (param === 'logDevice'){
+                Homey.get('logDevice', function (err, deviceLog) {
+                    if (err) return Homey.alert(err);
+                    log(deviceLog);
+                })
+            }
+        })
+
         logsPageButton.addEventListener('click', function (){
-
-            Homey.get('log-file', function (err, logFile) {
-                logs = logFile;
-                if (err) return Homey.alert(err);
-
-            });
 
             logsPageButton.className = "nav-link active";
             settingPageButton.className = "nav-link";
@@ -266,11 +267,7 @@
             document.getElementById("setpage").hidden = true;
             document.getElementById("logpage").hidden = false;
 
-            if(logs === {} || logs === null || logs === undefined){
-                log("Nothing to show...")
-            }else{
-                log(logs);
-            }
+            log(logs);
         })
 
     }

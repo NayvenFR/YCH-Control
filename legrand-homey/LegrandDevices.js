@@ -15,6 +15,8 @@ class LegrandDevices {
 
         LegrandDevices.refreshDeviceStatus(HomeyDevice);
         HomeyDevice.log(HomeyDevice.getName(), 'has been inited');
+
+        HomeyDevice.log(HomeyDevice.data);
     }
 
     static onAddedSync(HomeyDevice){
@@ -69,7 +71,7 @@ class LegrandDevices {
     static refreshDeviceStatus(HomeyDevice){
         HomeyDevice.homey.app.legrandBuffer.getRequestBuffer(HomeyDevice.data).catch(err => {
             HomeyDevice.log(err);
-            HomeyDevice.homey.app.logger.log(err);
+            HomeyDevice.homey.app.logger.log("["+HomeyDevice.data.name+"] " +err);
         });
     }
 
@@ -79,11 +81,11 @@ class LegrandDevices {
                 HomeyDevice.log(mess);
             }).catch(err => {
                 HomeyDevice.log(err);
-                HomeyDevice.homey.app.logger.log(err);
+                HomeyDevice.homey.app.logger.log("["+HomeyDevice.data.name+"] " +err);
             });
         }).catch(err => {
             HomeyDevice.log(err);
-            HomeyDevice.homey.app.logger.log(err);
+            HomeyDevice.homey.app.logger.log("["+HomeyDevice.data.name+"] " +err);
         });
 }
 
@@ -92,11 +94,12 @@ class LegrandDevices {
             LegrandDevices.onCapabilityChange(HomeyDevice, capabilityValues)
                 .then(res => {
                     LegrandDevices.getDeviceStatus(HomeyDevice);
+                    HomeyDevice.homey.app.logger.log("["+HomeyDevice.data.name+"] " +res);
                     HomeyDevice.log(res);
                 })
                 .catch(err => {
                     HomeyDevice.log(err);
-                    HomeyDevice.homey.app.logger.log(err);
+                    HomeyDevice.homey.app.logger.log("["+HomeyDevice.data.name+"] " +err);
                     //Lors d'une erreur dans la requête même si l'appareil est dispo il est désactiver
                     //todo : il faut créer une fonction qui lit le contenu de l'érreur et qui traite ça
                     //HomeyDevice.setUnavailable().catch(err => reject(err)); //Peut etre trouver une condition pour éviter des bogues
@@ -115,13 +118,13 @@ class LegrandDevices {
             HomeyDevice.log(mess);
         }).catch(err => {
             HomeyDevice.log(err)
-            HomeyDevice.homey.app.logger.log(err);
+            HomeyDevice.homey.app.logger.log("["+HomeyDevice.data.name+"] " +err);
         });
     }
 
     static getDeviceMap(HomeyDevice) {
         const data = [HomeyDevice.getData(), HomeyDevice.getStore()];
-        let res = {};
+        let res = {"name": HomeyDevice.getName()};
 
         for (const item of data) {
             for (const property of Object.keys(item)) {

@@ -142,7 +142,6 @@ async function QueryDevice(args) {
     };
     options = { method, headers };
   }
-
   return new Promise((resolve, reject) => {
     fetch(url, options).then(res => {
       resolve(res);

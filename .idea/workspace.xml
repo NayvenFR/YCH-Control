@@ -20,21 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9d5a8bc-1c13-440c-b1c6-fced05b415a1" name="Default Changelist" comment="Version 1.0.5a">
-      <change afterPath="$PROJECT_DIR$/run.zch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.homeychangelog.json" beforeDir="false" afterPath="$PROJECT_DIR$/.homeychangelog.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/lightdriver/device.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/lightdriver/device.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/socketdriver/device.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/device.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandBuffer.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandBuffer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/YchApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/YchApp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locales/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locales/fr.json" beforeDir="false" afterPath="$PROJECT_DIR$/locales/fr.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/settings/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/settings/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -177,7 +168,15 @@
       <workItem from="1617804786726" duration="857000" />
       <workItem from="1617810929153" duration="7844000" />
       <workItem from="1617822456238" duration="599000" />
-      <workItem from="1617873044604" duration="1798000" />
+      <workItem from="1617873044604" duration="2603000" />
+      <workItem from="1617958388326" duration="1716000" />
+      <workItem from="1617975714930" duration="4832000" />
+      <workItem from="1619001368756" duration="5000" />
+      <workItem from="1619732063045" duration="63000" />
+      <workItem from="1620303601524" duration="3388000" />
+      <workItem from="1622123900064" duration="21000" />
+      <workItem from="1622123970912" duration="6906000" />
+      <workItem from="1622141601362" duration="256000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.5a">
       <created>1617573320727</created>
@@ -215,6 +214,11 @@
           <url>file://$PROJECT_DIR$/legrand-homey/YchUtil.js</url>
           <line>153</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js</url>
+          <line>67</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
