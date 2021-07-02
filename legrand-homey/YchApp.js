@@ -16,6 +16,7 @@ class YchApp extends Homey.App {
 
     //Fonction contenant l'affectation des variables néscéssaires au bon fonctionnement du programme
     startupOperations() {
+
         //Dictionnaire global contenant les différentes valeurs néscéssaires pour communiquer avec l'API Legrand
         this.GLOBAL_AUTH_MAP = {
             client_id: Homey.env.CLIENT_ID,
@@ -29,16 +30,32 @@ class YchApp extends Homey.App {
         //Emitter néscessaire (ou pas, à voir si homey l'intègre directement) pour dire aux instances devices que leur status
         //a été refreshed
         this.emitter = new events.EventEmitter();
+
         //Instanciations globale de cette classe statique car elle intègre les méthodes pour intéragir avec l'api
         this.legrand_api = LegrandAPI;
         this.legrandBuffer = LegrandBuffer;
         this.logger = new Logger(this);
-
         this.legrandBuffer.startup(this);
 
         this.initSpeeds(this);
         this.checkRequestCounts();
         this.periodicalRefreshStatus(this, this.syncSpeed);
+    }
+
+    flowListener(){
+        this._flowTriggerLevelChanged = this.homey.flow.getDeviceTriggerCard('level_changed');
+        this._flowTriggerOnmodeComfort = this.homey.flow.getDeviceTriggerCard('onmode_comfort');
+        this._flowTriggerOnmodeEco = this.homey.flow.getDeviceTriggerCard('onmode_eco');
+        this._flowTriggerOnmodeFrost = this.homey.flow.getDeviceTriggerCard('onmode_frost');
+
+        this.emitter.on("triggerFlow", (property) => {
+            if (property.cap === "wiredpilot_mode"){
+                if (property.lastState === "off") (this._flowTriggerOnmodeFrost.trigger())
+                else if (property.lastState === "cool") (this._flowTriggerOnmodeEco.trigger())
+                else if (property.lastState === "heat") (this._flowTriggerOnmodeComfort.trigger())
+            }
+            else if (property.cap === "windowcoverings_level") (this._flowTriggerLevelChanged.trigger())
+        })
     }
 
     clearInterval(){

@@ -67,8 +67,8 @@ const capabilitiesOptionsPerType = {
     "NLPT" : {"onoff" : {}},
     "NLM" : {"onoff" : {}},
     "NLL" : {"onoff" : {}},
-    "NLF" : {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1}},
-    "NLFN" : {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1}},
+    "NLF" : {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1, "decimals" : 0, "$flow": {"actions": [{"args":{"min": 0,"max": 100, "step": 1, "value": 50, "label": "%", "labelMultiplier": 1, "labelDecimals": 0}}]}}},
+    "NLFN" : {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1, "decimals" : 0, "$flow": {"actions": [{"args":{"min": 0,"max": 100, "step": 1, "value": 50, "label": "%", "labelMultiplier": 1, "labelDecimals": 0}}]}}},
     //Plugs
     "NLPO" : {"onoff" : {}},
     "NLP" : {"onoff" : {}},
@@ -81,7 +81,7 @@ const capabilitiesOptionsPerType = {
     "NLLM" : {"windowcoverings_state":{}},
     "NLVI": {"windowcoverings_state":{}},
     //Energy Meters
-    "NLPC" : {}
+    "NLPC" : {"measure_power":{}}
 
 }
 
@@ -102,13 +102,12 @@ class LegrandHomeyConversion{
     static deviceStatusToApi  (capabilitiesValues) {
         let body = {};
         for (let [key, value] of Object.entries(capabilitiesValues)){
-            if (key === 'dim') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = value);
+            if (key === 'dim' || key === 'windowcoverings_level') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = value);
             else if (key === 'windowcoverings_state') {
                 if (value === 'up') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = 100);
                 else if (value === 'idle') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = 50);
                 else if (value === 'down') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = 0);
             }
-            else if (key === 'windowcoverings_level') (body[deviceCapabilityTranslationFromHomeyToAPI[key]] = value);
             else(body[deviceCapabilityTranslationFromHomeyToAPI[key]] = deviceCapabilityValueTranslationFromHomeyToAPI[value]);
         }
         return body;

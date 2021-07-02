@@ -16,7 +16,17 @@ class LegrandDevices {
         LegrandDevices.refreshDeviceStatus(HomeyDevice);
         HomeyDevice.log(HomeyDevice.getName(), 'has been inited');
 
-        HomeyDevice.log(HomeyDevice.data);
+        //Code pour les Flows
+        const capa = HomeyDevice.getCapabilities();
+        for (let item of capa){
+            if (item === 'windowcoverings_level'){
+                HomeyDevice.flowProperty = {"cap" : 'windowcoverings_level', "lastState": 0};
+            }
+            else if (item === 'wiredpilot_mode'){
+                HomeyDevice.flowProperty = {"cap" : 'wiredpilot_mode', "lastState": "cool"};
+            }
+            else (HomeyDevice.flowProperty = undefined)
+        }
     }
 
     static onAddedSync(HomeyDevice){
@@ -58,9 +68,14 @@ class LegrandDevices {
                 else {
                     HomeyDevice.setCapabilityValue(key, value).catch(err => reject(err));
                     HomeyDevice.log('['+name+'] / '+key +': ', value);
-                    //PERMET DE TRIGGER LES FLOWS POUR FILS PILOTES
-                    if (HomeyDevice.data.device === "heater" && key === "wiredpilot_mode"){
-                        HomeyDevice.triggerMyFlow(value);
+
+                    //Code pour trigger les custom flows
+                    HomeyDevice.log(HomeyDevice.flowProperty);
+                    if (HomeyDevice.flowProperty !== undefined){
+                        if (key === HomeyDevice.flowProperty.cap && value !== HomeyDevice.flowProperty.lastState){
+                            HomeyDevice.flowProperty.lastState = value;
+                            HomeyDevice.driver.triggerMyFlow(HomeyDevice, value);
+                        }
                     }
                 }
             }
@@ -94,7 +109,6 @@ class LegrandDevices {
             LegrandDevices.onCapabilityChange(HomeyDevice, capabilityValues)
                 .then(res => {
                     LegrandDevices.getDeviceStatus(HomeyDevice);
-                    HomeyDevice.homey.app.logger.log("["+HomeyDevice.data.name+"] " +res);
                     HomeyDevice.log(res);
                 })
                 .catch(err => {
