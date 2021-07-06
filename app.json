@@ -5,12 +5,14 @@
   "sdk": 3,
   "name": {
     "en": "YCH Control",
-    "fr": "YCH Control"
+    "fr": "YCH Control",
+    "it": "YCH Control"
   },
   "brandColor": "#FF3F13",
   "description": {
     "en": "Legrand® Home + Control for Homey",
-    "fr": "Legrand® Home + Control pour Homey"
+    "fr": "Legrand® Home + Control pour Homey",
+    "it": "Legrand® Home + Control per Homey"
   },
   "tags": {
     "en": [
@@ -39,6 +41,18 @@
       "Roulants",
       "Bticino",
       "MyHome"
+    ],
+    "it": [
+      "Legrand",
+      "Home",
+      "Control",
+      "+",
+      "luci",
+      "prese",
+      "connesse",
+      "YCH",
+      "Persiane",
+      "Tapparelle"
     ]
   },
   "flow": {
@@ -47,53 +61,61 @@
         "id": "onmode_comfort",
         "title": {
           "en": "Is on comfort mode",
-          "fr": "Est en mode confort"
+          "fr": "Est en mode confort",
+          "it": "E' in modalità confort"
         },
         "args": [
           {
             "type": "device",
             "name": "my_device",
             "filter": "driver_id=wiredpilotdriver"
-          }]
+          }
+        ]
       },
       {
         "id": "onmode_eco",
         "title": {
           "en": "Is on eco mode",
-          "fr": "Est en mode eco"
+          "fr": "Est en mode eco",
+          "it": "E' in modalità eco"
         },
         "args": [
           {
             "type": "device",
             "name": "my_device",
             "filter": "driver_id=wiredpilotdriver"
-          }]
+          }
+        ]
       },
       {
         "id": "onmode_frost",
         "title": {
           "en": "Is on frost-guard mode",
-          "fr": "Est en mode hors-gel"
+          "fr": "Est en mode hors-gel",
+          "it": "E' in modalità antigelo"
         },
         "args": [
           {
             "type": "device",
             "name": "my_device",
             "filter": "driver_id=wiredpilotdriver"
-          }]
+          }
+        ]
       },
       {
         "id": "level_changed",
         "title": {
           "en": "Shutter-level changed",
-          "fr": "La hauteur du volet roulant a été modifée"
+          "fr": "La hauteur du volet roulant a été modifée",
+          "it": "L'altezza della tapparella è cambiata"
         },
         "args": [
           {
             "type": "device",
             "name": "my_device",
             "filter": "driver_id=rollershutterdriver&capabilities=windowcoverings_level"
-          }]
+          }
+        ]
       }
     ],
     "conditions": [
@@ -101,18 +123,20 @@
         "id": "onmode_x",
         "title": {
           "en": "State is...",
-          "fr": "L'état est..."
+          "fr": "L'état est...",
+          "it": "Lo stato è..."
         },
         "titleFormatted": {
           "en": "State !{{is|isn't}} [[state]]",
-          "fr": "L'état !{{est|n'est pas}} [[state]]"
+          "fr": "L'état !{{est|n'est pas}} [[state]]",
+          "it": "Lo stato !{{è|non è}} [[state]]"
         },
         "args": [
-            {
-              "type": "device",
-              "name": "my_device",
-              "filter": "driver_id=wiredpilotdriver"
-            },
+          {
+            "type": "device",
+            "name": "my_device",
+            "filter": "driver_id=wiredpilotdriver"
+          },
           {
             "name": "state",
             "type": "dropdown",
@@ -121,21 +145,24 @@
                 "id": "frost",
                 "label": {
                   "en": "Frost-guard",
-                  "fr": "Hors-gel"
+                  "fr": "Hors-gel",
+                  "it": "Antigelo"
                 }
               },
               {
                 "id": "comfort",
                 "label": {
                   "en": "Comfort",
-                  "fr": "Confort"
+                  "fr": "Confort",
+                  "it": "Confort"
                 }
               },
               {
                 "id": "eco",
                 "label": {
                   "en": "Eco",
-                  "fr": "Eco"
+                  "fr": "Eco",
+                  "it": "Eco"
                 }
               }
             ]
@@ -148,11 +175,13 @@
         "id": "level",
         "title": {
           "en": "Change level ",
-          "fr": "Changer la hauteur du volet roulant "
+          "fr": "Changer la hauteur du volet roulant ",
+          "it": "Cambia l'altezza della tapparella"
         },
         "titleFormatted": {
           "en": "Set level to [[level]]",
-          "fr ": "Changer la hauteur à [[level]]"
+          "fr ": "Changer la hauteur à [[level]]",
+          "it": "Imposta la tapparella a [[level]]"
         },
         "args": [
           {
@@ -166,51 +195,57 @@
             "labelMultiplier": 1,
             "labelDecimals": 0
           },
-            {
-              "type": "device",
-              "name": "my_device",
-              "filter": "driver_id=rollershutterdriver&capabilities=windowcoverings_level"
-            }
+          {
+            "type": "device",
+            "name": "my_device",
+            "filter": "driver_id=rollershutterdriver&capabilities=windowcoverings_level"
+          }
         ]
       },
       {
         "id": "start_frost",
         "title": {
           "en": "Set frost-guard mode",
-          "fr": "Activer le mode hors-gel"
+          "fr": "Activer le mode hors-gel",
+          "it": "Attiva la modalità antigelo"
         },
         "args": [
           {
             "type": "device",
             "name": "my_device",
             "filter": "driver_id=wiredpilotdriver"
-          }]
+          }
+        ]
       },
       {
         "id": "start_eco",
         "title": {
           "en": "Set eco mode",
-          "fr": "Activer le mode eco"
+          "fr": "Activer le mode eco",
+          "it": "Attiva la modalità eco"
         },
         "args": [
           {
             "type": "device",
             "name": "my_device",
             "filter": "driver_id=wiredpilotdriver"
-          }]
+          }
+        ]
       },
       {
         "id": "start_comfort",
         "title": {
           "en": "Set comfort mode",
-          "fr": "Activer le mode confort"
+          "fr": "Activer le mode confort",
+          "it": "Attiva la modalità confort"
         },
         "args": [
           {
             "type": "device",
             "name": "my_device",
             "filter": "driver_id=wiredpilotdriver"
-          }]
+          }
+        ]
       }
     ]
   },
@@ -224,6 +259,9 @@
     "translators": [
       {
         "name": "Yann Montiel"
+      },
+      {
+        "name": "Raffaele De Lauri"
       }
     ]
   },
@@ -280,7 +318,8 @@
       "type": "enum",
       "title": {
         "en": "Pilot wire mode",
-        "fr": "Mode du fil pilot"
+        "fr": "Mode du fil pilot",
+        "it": "Modalità del termostato"
       },
       "uiComponent": "picker",
       "getable": true,
@@ -290,21 +329,24 @@
           "id": "heat",
           "title": {
             "en": "Comfort",
-            "fr": "Confort"
+            "fr": "Confort",
+            "it": "Confort"
           }
         },
         {
           "id": "cool",
           "title": {
             "en": "Eco ",
-            "fr": "Eco"
+            "fr": "Eco",
+            "it": "Eco"
           }
         },
         {
           "id": "off",
           "title": {
             "en": "Frost-guard",
-            "fr": "Hors-gel"
+            "fr": "Hors-gel",
+            "it": "Antigelo"
           }
         }
       ]
@@ -315,7 +357,8 @@
       "id": "lightdriver",
       "name": {
         "en": "Light",
-        "fr": "Lumière"
+        "fr": "Lumière",
+        "it": "Luce"
       },
       "pair": [
         {
@@ -345,7 +388,8 @@
       "id": "socketdriver",
       "name": {
         "en": "Socket",
-        "fr": "Prise"
+        "fr": "Prise",
+        "it": "Presa"
       },
       "pair": [
         {
@@ -375,7 +419,8 @@
       "id": "rollershutterdriver",
       "name": {
         "en": "Roller Shutter",
-        "fr": "Volet Roulant"
+        "fr": "Volet Roulant",
+        "it": "Tapparella"
       },
       "class": "windowcoverings",
       "pair": [
@@ -405,7 +450,8 @@
       "id": "wiredpilotdriver",
       "name": {
         "en": "Pilot Wire",
-        "fr": "Fil Pilote"
+        "fr": "Fil Pilote",
+        "it": "Termostato"
       },
       "pair": [
         {
@@ -435,7 +481,8 @@
       "id": "energymeterdriver",
       "name": {
         "en": "Energy Meter",
-        "fr": "Compteur d'énergie"
+        "fr": "Compteur d'énergie",
+        "it": "Misuratore"
       },
       "pair": [
         {
