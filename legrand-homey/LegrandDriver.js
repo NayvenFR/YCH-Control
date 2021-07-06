@@ -61,6 +61,16 @@ class LegrandDriver {
     });
   }
 
+  static driverGetScenesList(HomeyDriver) {
+    return new Promise((resolve, reject) => {
+      HomeyDriver.homey.app.refreshAccessToken().then(auth => {
+        HomeyDriver.homey.app.legrand_api.getScenesList(auth).then(res => {
+          resolve(res);
+        }).catch(err => reject(err));
+      }).catch(err => reject(err));
+    });
+  }
+
   static driverGetAccessToken(HomeyDriver, code) {
     return new Promise((resolve, reject) => {
       const AUTH_MAP = HomeyDriver.homey.app.GLOBAL_AUTH_MAP;

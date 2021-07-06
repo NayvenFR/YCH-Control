@@ -1,6 +1,6 @@
 {
   "id": "fr.yelca-m.ychcontrol",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "name": {
@@ -506,6 +506,39 @@
       "images": {
         "small": "/drivers/energymeterdriver/assets/images/small.png",
         "large": "/drivers/energymeterdriver/assets/images/large.png"
+      }
+    },
+    {
+      "id": "scenedriver",
+      "name": {
+        "en": "Scene",
+        "fr": "Scénario",
+        "it": "Scenari"
+      },
+      "pair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "class": "button",
+      "capabilities": [
+        "button"
+      ],
+      "images": {
+        "small": "/drivers/scenedriver/assets/images/small.png",
+        "large": "/drivers/scenedriver/assets/images/large.png"
       }
     }
   ]

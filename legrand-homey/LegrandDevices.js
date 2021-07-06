@@ -8,6 +8,7 @@ class LegrandDevices {
         HomeyDevice.log('Class', HomeyDevice.getClass());
 
         HomeyDevice.data = LegrandDevices.getDeviceMap(HomeyDevice);
+        //HomeyDevice.log(HomeyDevice.data);
         LegrandDevices.registerDeviceCapabilitiesListener(HomeyDevice);
 
         //Listener for device state change
@@ -81,6 +82,16 @@ class LegrandDevices {
             }
             resolve('['+name+'] / '+'Statuses correclty sets');
         });
+    }
+
+    static runScene(HomeyDevice, data){
+        return new Promise((resolve, reject) => {
+            HomeyDevice.homey.app.refreshAccessToken().then(async auth => {
+                await HomeyDevice.homey.app.legrand_api.runScene(auth, data).then(res => {
+                    resolve(res);
+                }).catch(err => reject (err));
+            }).catch(err => reject (err));
+        })
     }
 
     static refreshDeviceStatus(HomeyDevice){

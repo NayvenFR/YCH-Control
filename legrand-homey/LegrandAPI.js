@@ -192,6 +192,48 @@ class LegrandAPI {
       }).catch(err => reject(err));
     });
   }
+
+  static runScene(auth, sceneData){
+    const args = {"AUTH_MAP" : auth, "data" : sceneData, "method" : 'post'};
+
+    return new Promise((resolve, reject) => {
+      LegrandAPI.globalQuery(LegrandQuery.QueryScene, args).then(res => {
+        resolve(res);
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  }
+
+  static getPlantScenes (auth, plant) {
+
+    const args = {"AUTH_MAP" : auth, "plantId" : plant, "method" : 'get'};
+
+    return new Promise(async (resolve, reject) => {
+      await LegrandAPI.globalQuery(LegrandQuery.QueryScene, args).then(res => {
+        resolve(res);
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  }
+
+  static getScenesList (auth) {
+    return new Promise( (resolve, reject) => {
+      LegrandAPI.getPlantsTopology(auth).then(async plants => {
+        let scenes = [];
+        for (const plant of plants) {
+          await LegrandAPI.getPlantScenes(auth, plant.id).then(res => {
+            const listScene = res["scenes"];
+            for (let item of listScene){
+              scenes.push(conversion.wrapSceneData(item, plant.id));
+            }
+          }).catch(err => reject (err));
+        }
+        resolve(scenes);
+      }).catch(err => reject(err));
+    });
+  }
 }
 
 module.exports = LegrandAPI;

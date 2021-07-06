@@ -57,6 +57,7 @@ const capabilitiesPerType = {
     "NLLV" : ["windowcoverings_level"],
     "NLLM" : ["windowcoverings_state"],
     "NLVI" : ["windowcoverings_state"],
+    "NBR" : ["windowcoverings_state"],
     //Energy Meters
     "NLPC" : ["measure_power"]
 
@@ -80,6 +81,7 @@ const capabilitiesOptionsPerType = {
     "NLLV" : {"windowcoverings_level": {"min":0, "max":100, "step":1}},
     "NLLM" : {"windowcoverings_state":{}},
     "NLVI": {"windowcoverings_state":{}},
+    "NBR": {"windowcoverings_state":{}},
     //Energy Meters
     "NLPC" : {"measure_power":{}}
 
@@ -193,6 +195,23 @@ class LegrandHomeyConversion{
             store: { hwType: module.hwType, plantId: module.plantId, device: module.device },
             capabilities : capabilities,
             capabilitiesOptions: capabilitiesOptions
+        }; // fin form
+
+        return form;
+    }
+
+    static wrapSceneData(scene, plant){
+
+        const name = scene["name"];
+        const id = scene["sender"]["plant"]["module"]["id"];
+        const plantId = plant;
+
+        const form = {
+            name: name,
+            data: {
+                id: id,
+            },
+            store: { plantId: plantId},
         }; // fin form
 
         return form;

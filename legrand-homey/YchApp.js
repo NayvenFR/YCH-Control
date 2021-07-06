@@ -42,22 +42,6 @@ class YchApp extends Homey.App {
         this.periodicalRefreshStatus(this, this.syncSpeed);
     }
 
-    flowListener(){
-        this._flowTriggerLevelChanged = this.homey.flow.getDeviceTriggerCard('level_changed');
-        this._flowTriggerOnmodeComfort = this.homey.flow.getDeviceTriggerCard('onmode_comfort');
-        this._flowTriggerOnmodeEco = this.homey.flow.getDeviceTriggerCard('onmode_eco');
-        this._flowTriggerOnmodeFrost = this.homey.flow.getDeviceTriggerCard('onmode_frost');
-
-        this.emitter.on("triggerFlow", (property) => {
-            if (property.cap === "wiredpilot_mode"){
-                if (property.lastState === "off") (this._flowTriggerOnmodeFrost.trigger())
-                else if (property.lastState === "cool") (this._flowTriggerOnmodeEco.trigger())
-                else if (property.lastState === "heat") (this._flowTriggerOnmodeComfort.trigger())
-            }
-            else if (property.cap === "windowcoverings_level") (this._flowTriggerLevelChanged.trigger())
-        })
-    }
-
     clearInterval(){
         this.homey.clearInterval(this.interval);
     }

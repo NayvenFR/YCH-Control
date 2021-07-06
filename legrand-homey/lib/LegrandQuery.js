@@ -10,7 +10,10 @@ const urlList = {
   PLANT_URL_STATUS : 'https://api.developer.legrand.com/hc/api/v1.0/plants/{plantId}',
   DEVICE_STATUS: 'https://api.developer.legrand.com/hc/api/v1.0/{DEVICE_TYPE}/addressLocation/plants/{plantId}/modules/parameter/id/value/{moduleId}',
   TOKEN_BODY: 'grant_type={GRANT_TYPE}&client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&{TOKEN_TYPE}',
-  PLANT_DEVICE_STATUS: 'https://api.developer.legrand.com/hc/api/v1.0/{DEVICE_TYPE}/addressLocation/plants/{plantId}'
+  PLANT_DEVICE_STATUS: 'https://api.developer.legrand.com/hc/api/v1.0/{DEVICE_TYPE}/addressLocation/plants/{plantId}',
+  GET_SCENE : 'https://api.developer.legrand.com/hc/api/v1.0/scene/comfort/addressLocation/plants/{plantId}',
+  RUN_SCENE : 'https://api.developer.legrand.com/hc/api/v1.0/scene/comfort/addressLocation/plants/{plantId}/modules/parameter/id/value/{sceneId}'
+
 };
 
 // Replace in DEVICE_STATUS url the {DEVICE_TYPE} to get the right url for API interaction
@@ -30,6 +33,7 @@ function replaceValues(url, values) {
   const urlReplacementValues = {
     '{DEVICE_TYPE}': '{DEVICE_TYPE}',
     '{plantId}': '{plantId}',
+    '{sceneId}': '{sceneId}',
     '{moduleId}': '{moduleId}',
     '{CLIENT_ID}': '{CLIENT_ID}',
     '{CLIENT_SECRET}': '{CLIENT_SECRET}',
@@ -151,6 +155,43 @@ async function QueryDevice(args) {
   });
 }
 
+async function QueryScene (args){
+  const auth = args["AUTH_MAP"];
+  const method = args["method"];
+  let url="";
+
+  let options = null;
+  let headers = null;
+
+  if (method === 'post') {
+    const data = args["data"];
+    url = await replaceValues(urlList['RUN_SCENE'], {'{plantId}': data['plantId'], '{sceneId}': data['id'] });
+    headers = {
+      'Content-Type': 'application/json',
+      'Ocp-Apim-Subscription-Key': auth['subscription_key'],
+      Authorization: `Bearer ${auth['access_token']}`,
+    };
+    options = { method, body: JSON.stringify({"enable": true}), headers };
+
+  } else if (method === 'get') {
+    const id = args['plantId'];
+    url = await replaceValues(urlList['GET_SCENE'], {'{plantId}': id});
+    headers = {
+      'Ocp-Apim-Subscription-Key': auth['subscription_key'],
+      Authorization: `Bearer ${auth['access_token']}`,
+    };
+    options = { method, headers };
+  }
+  return new Promise((resolve, reject) => {
+    fetch(url, options).then(res => {
+      resolve(res);
+    }).catch(err => {
+      reject(err);
+    });
+  });
+}
+
 module.exports.QueryToken = QueryToken;
 module.exports.QueryPlant = QueryPlant;
 module.exports.QueryDevice = QueryDevice;
+module.exports.QueryScene = QueryScene;
