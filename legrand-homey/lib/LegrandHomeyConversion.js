@@ -201,19 +201,19 @@ class LegrandHomeyConversion{
     }
 
     static wrapSceneData(scene, plant){
-
         const name = scene["name"];
         const id = scene["sender"]["plant"]["module"]["id"];
+        const friendlyName = scene["friendlyName"]
         const plantId = plant;
+        
 
         const form = {
-            name: name,
+            name: friendlyName !== undefined ? friendlyName : name,
             data: {
                 id: id,
             },
             store: { plantId: plantId},
         }; // fin form
-
         return form;
     }
 
