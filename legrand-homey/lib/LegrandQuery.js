@@ -1,6 +1,6 @@
 'use strict';
 
-const fetch = require('./node-fetch');
+const fetch = require('node-fetch');
 
 // URL and BODIES for Legrand API interaction
 
@@ -12,7 +12,8 @@ const urlList = {
   TOKEN_BODY: 'grant_type={GRANT_TYPE}&client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&{TOKEN_TYPE}',
   PLANT_DEVICE_STATUS: 'https://api.developer.legrand.com/hc/api/v1.0/{DEVICE_TYPE}/addressLocation/plants/{plantId}',
   GET_SCENE : 'https://api.developer.legrand.com/hc/api/v1.0/scene/comfort/addressLocation/plants/{plantId}',
-  RUN_SCENE : 'https://api.developer.legrand.com/hc/api/v1.0/scene/comfort/addressLocation/plants/{plantId}/modules/parameter/id/value/{sceneId}'
+  RUN_SCENE : 'https://api.developer.legrand.com/hc/api/v1.0/scene/comfort/addressLocation/plants/{plantId}/modules/parameter/id/value/{sceneId}',
+  SUBSCRIPTION_URL : 'https://api.developer.legrand.com/hc/api/v1.0/addsubscription'
 
 };
 
@@ -191,7 +192,37 @@ async function QueryScene (args){
   });
 }
 
+async function SubscribeEvents(args) {
+  
+  const auth = args["AUTH_MAP"];
+  const method = args["method"];
+  const body = args["VALUE_BODY"];
+  let url="";
+
+  url = urlList['SUBSCRIPTION_URL'];
+  
+
+  let options = null;
+  let headers = null;
+
+  headers = {
+    "Content-Type": "application/json",
+    "Ocp-Apim-Subscription-Key": auth['subscription_key'],
+    "Authorization": `Bearer ${auth['access_token']}`,
+  };
+  options = { method, body: JSON.stringify(body), headers };
+
+  return new Promise((resolve, reject) => {
+    fetch(url, options).then(res => {
+      resolve(res);
+    }).catch(err => {
+      reject(err);
+    });
+  });
+}
+
 module.exports.QueryToken = QueryToken;
 module.exports.QueryPlant = QueryPlant;
 module.exports.QueryDevice = QueryDevice;
 module.exports.QueryScene = QueryScene;
+module.exports.SubscribeEvents = SubscribeEvents;

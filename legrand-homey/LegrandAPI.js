@@ -218,7 +218,7 @@ class LegrandAPI {
     })
   }
 
-  static getScenesList (auth) {
+  static getScenesList (auth,homeyDriver) {
     return new Promise( (resolve, reject) => {
       LegrandAPI.getPlantsTopology(auth).then(async plants => {
         let scenes = [];
@@ -226,7 +226,7 @@ class LegrandAPI {
           await LegrandAPI.getPlantScenes(auth, plant.id).then(res => {
             const listScene = res["scenes"];
             for (let item of listScene){
-              scenes.push(conversion.wrapSceneData(item, plant.id));
+              scenes.push(conversion.wrapSceneData(item, plant.id,homeyDriver));
             }
           }).catch(err => reject (err));
         }
@@ -234,6 +234,30 @@ class LegrandAPI {
       }).catch(err => reject(err));
     });
   }
+
+
+  ////////////////
+  static subscribePlantEvents (auth) {
+    return new Promise((resolve, reject) => {
+      LegrandAPI.getPlants(auth).then(async plants => {
+        const plantsArray = plants;
+        for (const plant of plantsArray) {
+          let body = {};
+          body['plantid'] = plant.id;
+          const args = {"AUTH_MAP" : auth,  "VALUE_BODY": body, "method" : "POST"};
+          await LegrandAPI.globalQuery(LegrandQuery.SubscribeEvents, args).then(res => {
+             events_subscribed = true
+          }).catch(err => {
+            reject(err);
+          })
+        }
+        resolve(`Events subscribed`);
+      }).catch(err => {
+        reject(err);
+      })
+    });
+  }
+
 }
 
 module.exports = LegrandAPI;

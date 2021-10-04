@@ -2,7 +2,8 @@
   "id": "socketdriver",
   "name": {
     "en": "Socket",
-    "fr": "Prise"
+    "fr": "Prise",
+    "it": "Presa"
   },
   "pair": [
     {

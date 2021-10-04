@@ -6,6 +6,14 @@ const LegrandDriver = require('../../legrand-homey/LegrandDriver');
 class SceneDriver extends Homey.Driver {
 
   onInit() {
+    this.homey.app.refreshAccessToken().then(auth => {
+      if (!events_subscribed){
+        this.homey.app.legrand_api.subscribePlantEvents(auth);
+      }
+    }).catch(err => this.log(err));
+    
+    this.homey.flow.getDeviceTriggerCard('scene_launched');
+    this.registerWebHook(this,this.homey.app.getStoredSettings('plants'))
     this.log('Driver has been inited');
   }
 
@@ -49,12 +57,53 @@ class SceneDriver extends Homey.Driver {
             this.log(err);
             this.logger.log(err);
           });
+      
+      //webhook registration
+      LegrandDriver.registerWebHook(this, this.homey.app.getStoredSettings('plants'));
       //On envoie au front end la liste des devices
       await session.emit('list_devices', scenes);
       this.log('Pairing session terminated');
 
       return scenes;
     });
+  }
+
+  async registerWebHook(HomeyDriver, plants){
+    HomeyDriver.log("registerWebHook")
+    if (this._webhook) {
+        await this.unregisterWebhook(HomeyDriver).catch(this.error);
+    }
+    
+    const plantsId = [];
+    for (const plant of plants) {
+      plantsId.push(plant.id)
+    }
+    
+    let webhook_data;
+    webhook_data = {
+      $keys: plantsId,
+    }
+    
+    HomeyDriver.log(webhook_data);
+    this._webhook = await HomeyDriver.homey.cloud.createWebhook(HomeyDriver.homey.app.GLOBAL_AUTH_MAP['webhook_id'], HomeyDriver.homey.app.GLOBAL_AUTH_MAP['webhook_secret'], webhook_data);
+    
+    this._webhook.on('message',args =>{
+      
+      const triggeredDevice = args.body[0].data.sender.plant.module.id;
+
+      const device = this.getDevices().find(device => device.getData().id === triggeredDevice);
+      const sceneLaunched = this.homey.flow.getTriggerCard("scene_launched")
+      sceneLaunched.trigger(device)
+      
+    });
+    //HomeyDriver.log(this._webhook)
+  }
+
+  async unregisterWebhook(HomeyDriver) {
+    if (this._webhook) {
+        await this._webhook.unregister();
+        HomeyDriver.log('Webhook unregistered');
+    }
   }
 }
 

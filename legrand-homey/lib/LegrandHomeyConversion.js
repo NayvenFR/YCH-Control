@@ -200,8 +200,8 @@ class LegrandHomeyConversion{
         return form;
     }
 
-    static wrapSceneData(scene, plant){
-        const name = scene["name"];
+    static wrapSceneData(scene, plant,homeyDriver){
+        const name = homeyDriver.homey.__(scene["name"]); 
         const id = scene["sender"]["plant"]["module"]["id"];
         const friendlyName = scene["friendlyName"]
         const plantId = plant;

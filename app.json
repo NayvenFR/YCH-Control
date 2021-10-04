@@ -116,6 +116,21 @@
             "filter": "driver_id=rollershutterdriver&capabilities=windowcoverings_level"
           }
         ]
+      },
+      {
+        "id": "scene_launched",
+        "title": {
+          "en": "Scene launched",
+          "fr": "Scénario lancé",
+          "it": "Scenario lanciato"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "my_device",
+            "filter": "driver_id=scenedriver"
+          }
+        ]
       }
     ],
     "conditions": [
@@ -254,6 +269,10 @@
       {
         "name": "Yann Montiel",
         "email": "montiel.yann&gmail.com"
+      },
+      {
+        "name": "Raffaele De Lauri",
+        "email": "swettdj87@yahoo.it"
       }
     ],
     "translators": [
@@ -513,7 +532,7 @@
       "name": {
         "en": "Scene",
         "fr": "Scénario",
-        "it": "Scenari"
+        "it": "Scenario"
       },
       "pair": [
         {

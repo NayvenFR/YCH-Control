@@ -12,11 +12,12 @@ const default_sync_speed = 10*60000;
 const default_delay_speed = 5000;
 const default_send_speed = 2000;
 
+global.events_subscribed = false
+
 class YchApp extends Homey.App {
 
     //Fonction contenant l'affectation des variables néscéssaires au bon fonctionnement du programme
-    startupOperations() {
-
+    async startupOperations() {
         //Dictionnaire global contenant les différentes valeurs néscéssaires pour communiquer avec l'API Legrand
         this.GLOBAL_AUTH_MAP = {
             client_id: Homey.env.CLIENT_ID,
@@ -24,7 +25,10 @@ class YchApp extends Homey.App {
             subscription_key: Homey.env.SUBSCRIPTION_KEY,
             access_token: this.getStoredSettings('access_token'),
             refresh_token: this.getStoredSettings('refresh_token'),
+            
             code: undefined,
+            webhook_id:  Homey.env.WEBHOOK_ID,
+            webhook_secret: Homey.env.WEBHOOK_SECRET            
         };
 
         //Emitter néscessaire (ou pas, à voir si homey l'intègre directement) pour dire aux instances devices que leur status
@@ -190,6 +194,7 @@ class YchApp extends Homey.App {
     updateStoredSettings(key, value) {
         this.homey.settings.set(key, value);
     }
+
 }
 
 module.exports = YchApp;

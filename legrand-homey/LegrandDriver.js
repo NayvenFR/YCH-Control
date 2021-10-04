@@ -43,10 +43,11 @@ class LegrandDriver {
             HomeyDriver.logger.log(err);
           });
       LegrandDriver.storePlantAndDevicesData(HomeyDriver, plants);
+  
       //On envoie au front end la liste des devices
       await session.emit('list_devices', devices);
       HomeyDriver.log('Pairing session terminated');
-
+      
       return devices;
     });
   }
@@ -64,9 +65,13 @@ class LegrandDriver {
   static driverGetScenesList(HomeyDriver) {
     return new Promise((resolve, reject) => {
       HomeyDriver.homey.app.refreshAccessToken().then(auth => {
-        HomeyDriver.homey.app.legrand_api.getScenesList(auth).then(res => {
+        HomeyDriver.homey.app.legrand_api.getScenesList(auth, HomeyDriver).then(res => {
           resolve(res);
         }).catch(err => reject(err));
+        // adding events subscription 
+        if (!events_subscribed){
+          HomeyDriver.homey.app.legrand_api.subscribePlantEvents(auth);
+        }
       }).catch(err => reject(err));
     });
   }

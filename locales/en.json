@@ -16,5 +16,13 @@
     "send": "Changes the delay between the user action and the actual sending of the order to the Legrand API (in seconds)",
     "send_recom": "Recommended : 2 seconds",
     "okay" : "Saved !"
-  }
+  },
+  "away" : "Away",
+  "home" : "Home",
+  "day" : "Day",
+  "night" : "Night",
+  "custom_1": "Custom 1",
+  "custom_2": "Custom 2",
+  "custom_3": "Custom 3",
+  "custom_4": "Custom 4"
 }

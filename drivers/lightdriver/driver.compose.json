@@ -2,7 +2,8 @@
   "id": "lightdriver",
   "name": {
     "en": "Light",
-    "fr": "Lumière"
+    "fr": "Lumière",
+    "it": "Luce"
   },
   "pair": [
     {

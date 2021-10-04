@@ -15,10 +15,13 @@ class SceneDevice extends Homey.Device {
     //this.log(this.data);
 
     this.registerMultipleCapabilityListener(this.getCapabilities(), ( capabilityValues) => {
+      
       LegrandDevices.runScene(this, this.data).then(res => this.log(res)).catch(err => this.log(err));
     }, 500);
 
     this.log(this.getName(), 'has been inited');
+
+    this.homey.flow.getTriggerCard('scene_launched')
   }
 
 }

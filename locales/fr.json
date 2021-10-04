@@ -16,5 +16,14 @@
     "send": "Change le délai entre l'action utilisateur et l'envoi effectif de l'ordre vers l'API Legrand (en secondes)",
     "send_recom": "Recommandé : 2 secondes",
     "okay": "Sauvegardé !"
-  }
+  },
+  "away" : "Départ",
+  "home" : "Arrivée",
+  "day" : "Lever",
+  "night" : "Coucher",
+  "custom_1": "Custom 1",
+  "custom_2": "Custom 2",
+  "custom_3": "Custom 3",
+  "custom_4": "Custom 4"
+
 }
