@@ -59,7 +59,7 @@ class SceneDriver extends Homey.Driver {
           });
       
       //webhook registration
-      LegrandDriver.registerWebHook(this, this.homey.app.getStoredSettings('plants'));
+      this.registerWebHook(this, this.homey.app.getStoredSettings('plants'));
       //On envoie au front end la liste des devices
       await session.emit('list_devices', scenes);
       this.log('Pairing session terminated');
