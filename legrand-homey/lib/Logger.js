@@ -8,7 +8,7 @@ class Logger{
     log(entry) {
         const event = new Date();
         this.ych.homey.app.log(event.toLocaleString() + " : " + entry);
-        this.ych.homey.app.updateStoredSettings('logDevice', event.toLocaleString() + " : " + entry);
+        //this.ych.homey.app.updateStoredSettings('logDevice', event.toLocaleString() + " : " + entry);
     }
 
 }

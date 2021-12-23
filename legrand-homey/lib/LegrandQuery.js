@@ -1,16 +1,12 @@
 'use strict';
 
-const fetch = require('node-fetch');
+const fetch = require('../../lib/node-fetch');
 
 // URL and BODIES for Legrand API interaction
 
 const urlList = {
-  TOKEN_URL: 'https://partners-login.eliotbylegrand.com/token',
-  PLANT_URL: 'https://api.developer.legrand.com/hc/api/v1.0/plants/{TOPOLOGY}',
-  PLANT_URL_STATUS : 'https://api.developer.legrand.com/hc/api/v1.0/plants/{plantId}',
-  DEVICE_STATUS: 'https://api.developer.legrand.com/hc/api/v1.0/{DEVICE_TYPE}/addressLocation/plants/{plantId}/modules/parameter/id/value/{moduleId}',
-  TOKEN_BODY: 'grant_type={GRANT_TYPE}&client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&{TOKEN_TYPE}',
-  PLANT_DEVICE_STATUS: 'https://api.developer.legrand.com/hc/api/v1.0/{DEVICE_TYPE}/addressLocation/plants/{plantId}',
+  TOKEN_URL: 'https://api.netatmo.com/oauth2/token',
+  TOKEN_BODY: 'grant_type={GRANT_TYPE}&client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&{TOKEN_TYPE}&scope=read_magellan write_magellan read_bubendorff write_bubendorff&redirect_uri=https://callback.athom.com/oauth2/callback/',
   GET_SCENE : 'https://api.developer.legrand.com/hc/api/v1.0/scene/comfort/addressLocation/plants/{plantId}',
   RUN_SCENE : 'https://api.developer.legrand.com/hc/api/v1.0/scene/comfort/addressLocation/plants/{plantId}/modules/parameter/id/value/{sceneId}',
   SUBSCRIPTION_URL : 'https://api.developer.legrand.com/hc/api/v1.0/addsubscription'
@@ -20,27 +16,14 @@ const urlList = {
 // Replace in DEVICE_STATUS url the {DEVICE_TYPE} to get the right url for API interaction
 //Because devices are sorted by categories and the URL to call each type is different
 
-const deviceUrlPerType = {
-  light: 'light/lighting',
-  plug: 'plug/energy',
-  heater: 'heater/comfort',
-  remote: 'remote/remote',
-  energymeter: 'meter/energy',
-  automation: 'automation/automation',
-};
-
 function replaceValues(url, values) {
 
   const urlReplacementValues = {
-    '{DEVICE_TYPE}': '{DEVICE_TYPE}',
-    '{plantId}': '{plantId}',
-    '{sceneId}': '{sceneId}',
-    '{moduleId}': '{moduleId}',
     '{CLIENT_ID}': '{CLIENT_ID}',
     '{CLIENT_SECRET}': '{CLIENT_SECRET}',
     '{TOKEN_TYPE}': '{TOKEN_TYPE}',
     '{GRANT_TYPE}': '{GRANT_TYPE}',
-    '{TOPOLOGY}': '{TOPOLOGY}',
+    '{TO_CHANGE}': '{TO_CHANGE}',
   };
 
   for (const key of Object.keys(urlReplacementValues)) {
@@ -92,19 +75,15 @@ function QueryPlant(args) {
 
   let url;
   let headers = {
-    'Ocp-Apim-Subscription-Key': auth['subscription_key'],
     Authorization: `Bearer ${auth['access_token']}`,
   };
   let options = { method: 'get', headers };
 
-  if (queryType === 'topology') {
-    url = replaceValues(urlList['PLANT_URL'], { '{TOPOLOGY}': `${plantId}/topology` });
-  }
-  else if(queryType === 'status'){
-    url = replaceValues(urlList['PLANT_URL_STATUS'], { '{plantId}': `${plantId}` });
+  if(queryType === 'status'){
+    url = 'https://api.netatmo.com/api/homestatus?home_id=' + plantId;
   }
   else {
-    url = replaceValues(urlList['PLANT_URL'], { '{TOPOLOGY}': '' });
+    url = 'https://api.netatmo.com/api/homesdata';
   }
 
   return new Promise((resolve, reject) => {
@@ -117,36 +96,18 @@ function QueryPlant(args) {
 async function QueryDevice(args) {
 
   const auth = args["AUTH_MAP"];
-  const method = args["method"];
-  const deviceData = args["DEVICE_MAP"];
   const body = args["VALUE_BODY"];
-  const isMultiple = args["isMultiple"];
-  let url="";
 
-  if (isMultiple) {
-    url = await replaceValues(urlList['PLANT_DEVICE_STATUS'], { '{DEVICE_TYPE}': deviceUrlPerType[deviceData['device']], '{plantId}': deviceData['plantId'] });
-  }
-  else{
-    url = await replaceValues(urlList['DEVICE_STATUS'], { '{DEVICE_TYPE}': deviceUrlPerType[deviceData['device']], '{plantId}': deviceData['plantId'], '{moduleId}': deviceData['id'] });
-  }
+  const url = 'https://api.netatmo.com/api/setstate';
 
-  let options = null;
-  let headers = null;
+  const headers = {
+    'Content-Type': 'application/json',
+    accept: "application/json",
+    Authorization: `Bearer ${auth['access_token']}`,
+  };
 
-  if (method === 'post') {
-    headers = {
-      'Content-Type': 'application/json',
-      'Ocp-Apim-Subscription-Key': auth['subscription_key'],
-      Authorization: `Bearer ${auth['access_token']}`,
-    };
-    options = { method, body: JSON.stringify(body), headers };
-  } else if (method === 'get') {
-    headers = {
-      'Ocp-Apim-Subscription-Key': auth['subscription_key'],
-      Authorization: `Bearer ${auth['access_token']}`,
-    };
-    options = { method, headers };
-  }
+  const options = { method: 'post', body: JSON.stringify(body), headers };
+
   return new Promise((resolve, reject) => {
     fetch(url, options).then(res => {
       resolve(res);

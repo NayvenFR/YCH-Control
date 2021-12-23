@@ -2,10 +2,12 @@ const LegrandObject = require('./LegrandObject');
 
 class LegrandModule extends LegrandObject {
 
-    constructor(name, id, device, hwType, roomId, plantId) {
+    constructor(name, id, type, applianceType, roomId, bridge, plantId) {
         super(name, id);
-        this.device = device;
-        this.hwType = hwType;
+        this.type = type;
+        this.applianceType = applianceType;
+        this.roomId = roomId;
+        this.bridge = bridge;
         this.plantId = plantId;
     }
 

@@ -8,7 +8,7 @@ class LegrandDevices {
         HomeyDevice.log('Class', HomeyDevice.getClass());
 
         HomeyDevice.data = LegrandDevices.getDeviceMap(HomeyDevice);
-        //HomeyDevice.log(HomeyDevice.data);
+        HomeyDevice.log(HomeyDevice.data);
         LegrandDevices.registerDeviceCapabilitiesListener(HomeyDevice);
 
         //Listener for device state change
@@ -31,7 +31,7 @@ class LegrandDevices {
     }
 
     static onAddedSync(HomeyDevice){
-        LegrandDevices.getDeviceStatus(HomeyDevice);
+        LegrandDevices.refreshDeviceStatus(HomeyDevice);
     }
 
     static setAvaibility(HomeyDevice, res ){
@@ -101,25 +101,10 @@ class LegrandDevices {
         });
     }
 
-    static getDeviceStatus(HomeyDevice) {
-        HomeyDevice.homey.app.legrandBuffer.getRequestBuffer(HomeyDevice.data).then(res => {
-            LegrandDevices.setStatus(HomeyDevice, res).then(mess => {
-                HomeyDevice.log(mess);
-            }).catch(err => {
-                HomeyDevice.log(err);
-                HomeyDevice.homey.app.logger.log("["+HomeyDevice.data.name+"] " +err);
-            });
-        }).catch(err => {
-            HomeyDevice.log(err);
-            HomeyDevice.homey.app.logger.log("["+HomeyDevice.data.name+"] " +err);
-        });
-}
-
     static registerDeviceCapabilitiesListener(HomeyDevice){
         HomeyDevice.registerMultipleCapabilityListener(HomeyDevice.getCapabilities(), ( capabilityValues) => {
             LegrandDevices.onCapabilityChange(HomeyDevice, capabilityValues)
                 .then(res => {
-                    LegrandDevices.getDeviceStatus(HomeyDevice);
                     HomeyDevice.log(res);
                 })
                 .catch(err => {
@@ -153,7 +138,8 @@ class LegrandDevices {
 
         for (const item of data) {
             for (const property of Object.keys(item)) {
-                res[property] = item[property];
+                if (property === "newId") res["id"] = item[property];
+                else res[property] = item[property];
             }
         }
         return res;

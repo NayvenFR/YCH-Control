@@ -1,12 +1,16 @@
 class LegrandRequest {
 
-    constructor(type, plantId, cap) {
-        this.deviceType = type;
+    constructor(type, bridge, deviceId, plantId, cap) {
+        this.type = type;
+        this.bridge = bridge;
         this.plantId = plantId;
+        this.deviceId = deviceId
         this.capabilityValue = cap;
-        this.type = null;
     }
 
+    update(req){
+        this.capabilityValue = req.capabilityValue;
+    }
 
     equals(req){
         if (this.type === null){
@@ -17,7 +21,7 @@ class LegrandRequest {
             }
             return false;
         }
-        return req.deviceType === this.deviceType && req.plantId === this.plantId && req.capabilityValue === this.capabilityValue;
+        return req.type === this.type && req.plantId === this.plantId && req.capabilityValue === this.capabilityValue &&this.deviceId === req.deviceId;
     }
 
 }

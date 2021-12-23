@@ -13,11 +13,6 @@ class LegrandPlant extends LegrandObject {
         this.rooms.set(room.id, room);
     }
 
-    addModuleToRoom(module, roomId) {
-        const room = this.rooms.get(roomId);
-        room.addModule(module);
-    }
-
     getPlantsModules() {
         let moduleArray = [];
         for (const [key, values] of this.rooms) {
@@ -31,8 +26,12 @@ class LegrandPlant extends LegrandObject {
         return moduleArray;
     }
 
-    addModuleToPlant(module) {
-        this.modulesNotSortedPerRoom.set(module.id, module);
+    addModuleToPlant(module, roomId) {
+        if (roomId !== undefined) {
+            const room = this.rooms.get(roomId);
+            room.addModule(module);
+        }
+        else (this.modulesNotSortedPerRoom.set(module.id, module))
     }
 
 }

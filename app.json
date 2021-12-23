@@ -379,6 +379,20 @@
         "fr": "Lumière",
         "it": "Luce"
       },
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "loading",
+          "template": "loading"
+        },
+        {
+          "id": "done",
+          "template": "done"
+        }
+      ],
       "pair": [
         {
           "id": "login_oauth2",
@@ -410,6 +424,20 @@
         "fr": "Prise",
         "it": "Presa"
       },
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "loading",
+          "template": "loading"
+        },
+        {
+          "id": "done",
+          "template": "done"
+        }
+      ],
       "pair": [
         {
           "id": "login_oauth2",
@@ -442,6 +470,20 @@
         "it": "Tapparella"
       },
       "class": "windowcoverings",
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "loading",
+          "template": "loading"
+        },
+        {
+          "id": "done",
+          "template": "done"
+        }
+      ],
       "pair": [
         {
           "id": "login_oauth2",
@@ -472,6 +514,20 @@
         "fr": "Fil Pilote",
         "it": "Termostato"
       },
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "loading",
+          "template": "loading"
+        },
+        {
+          "id": "done",
+          "template": "done"
+        }
+      ],
       "pair": [
         {
           "id": "login_oauth2",
@@ -503,6 +559,20 @@
         "fr": "Compteur d'énergie",
         "it": "Misuratore"
       },
+      "repair": [
+        {
+          "id": "login_oauth2",
+          "template": "login_oauth2"
+        },
+        {
+          "id": "loading",
+          "template": "loading"
+        },
+        {
+          "id": "done",
+          "template": "done"
+        }
+      ],
       "pair": [
         {
           "id": "login_oauth2",

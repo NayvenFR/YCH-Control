@@ -5,7 +5,8 @@ const LegrandDriver = require('../../legrand-homey/LegrandDriver');
 
 class WiredPilotDriver extends Homey.Driver {
   onInit() {
-    this.driver_type = 'heater';
+    this.driver_class = 'heater';
+    this.driver_type = {"NLC": "radiator"}
 
     this._flowTriggerOnmodeComfort = this.homey.flow.getDeviceTriggerCard('onmode_comfort');
     this._flowTriggerOnmodeEco = this.homey.flow.getDeviceTriggerCard('onmode_eco');
@@ -33,6 +34,10 @@ class WiredPilotDriver extends Homey.Driver {
   async onPair(session) {
     this.log('Pairing session started');
     await LegrandDriver.onPairLegrand(session, this, Homey);
+  }
+  async onRepair(session, device) {
+    this.log('Repairing session started');
+    await LegrandDriver.onRepairLegrand(session, device, this, Homey);
   }
 }
 

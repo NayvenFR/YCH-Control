@@ -2,20 +2,21 @@
 
 const LegrandRoom = require('./LegrandRoom');
 const LegrandModule = require('./LegrandModule');
+const {app} = require("homey");
 
 //The goal of the following functions are to extract or re assemble informations from API for Homey and vice versa
 
 
 const deviceCapabilityTranslationFromHomeyToAPI = {
-    'onoff': 'status',
-    'dim' : 'level',
-    'windowcoverings_state' : 'level',
-    'windowcoverings_level' : 'level',
+    'onoff': 'on',
+    'dim' : 'brightness',
+    'windowcoverings_state' : 'target_position',
+    'windowcoverings_level' : 'target_position',
     'wiredpilot_mode' : 'mode'
 };
 const deviceCapabilityValueTranslationFromHomeyToAPI = {
-    true: 'on',
-    false: 'off',
+    true: true,
+    false: false,
     'up' : 100,
     'down' : 0,
     'idle' : 50,
@@ -25,15 +26,16 @@ const deviceCapabilityValueTranslationFromHomeyToAPI = {
 };
 
 const deviceCapabilityTranslationFromApiToHomey = {
-    'status': 'onoff',
-    'level' : ['dim', 'windowcoverings_state', 'windowcoverings_level'],
-    'consumptions' : 'measure_power',
+    'on': 'onoff',
+    "brightness":'dim',
+    'xxxx' : ['windowcoverings_state', 'windowcoverings_level'],
+    'power' : 'measure_power',
     'reachable' : 'avaibility',
     "mode" : 'wiredpilot_mode'
 };
 const deviceCapabilityValueTranslationFromApiToHomey = {
-    'on': true,
-    'off': false,
+    true: true,
+    false: false,
     'frost_guard' : 'off',
     'away' : 'cool',
     'comfort':'heat'
@@ -41,65 +43,68 @@ const deviceCapabilityValueTranslationFromApiToHomey = {
 
 const capabilitiesPerType = {
     //Lights
-    "NLPT" : ["onoff", "measure_power"],
-    "NLM" : ["onoff", "measure_power"],
-    "NLL" : ["onoff", "measure_power"],
-    "NLF" : ["onoff", "measure_power", "dim"],
-    "NLFN" : ["onoff", "measure_power", "dim"],
+    "NLPT" : {"all" : ["onoff", "measure_power"]},
+    "NLM" : {"all" : ["onoff", "measure_power"]},
+    "NLL" : {"all" : ["onoff", "measure_power"]},
+    "NLF" : {"all": ["onoff", "measure_power", "dim"]},
+    "NLFN" : {"all": ["onoff", "measure_power", "dim"]},
     //Plugs
-    "NLPO" : ["onoff", "measure_power"],
-    "NLP" : ["onoff", "measure_power"],
-    "NLPBS": ["onoff", "measure_power"],
-    "NLPM" : ["onoff", "measure_power"],
-    "NLC" : {'plug' : ["onoff", "measure_power"], 'heater' : ["measure_power", "wiredpilot_mode"]},
+    "NLPO" : {"all" : ["onoff", "measure_power"]},
+    "NLP" : {"all" : ["onoff", "measure_power"]},
+    "NLPBS": {"all" : ["onoff", "measure_power"]},
+    "NLPM" : {"all" : ["onoff", "measure_power"]},
+    "NLC" : {'other' : ["onoff", "measure_power"],'cooking' : ["onoff", "measure_power"],'water_heater' : ["onoff", "measure_power"],'radiator_without_pilot_wire' : ["onoff", "measure_power"], 'radiator' : ["measure_power", "wiredpilot_mode"]},
     //VR
-    "NLV" : ["windowcoverings_state"],
-    "NLLV" : ["windowcoverings_level"],
-    "NLLM" : ["windowcoverings_state"],
-    "NLVI" : ["windowcoverings_state"],
-    "NBR" : ["windowcoverings_state"],
+    "NLV" : {"all": ["windowcoverings_state"]},
+    "NLLV" : {"all": ["windowcoverings_level"]},
+    "NLLM" : {"all": ["windowcoverings_state"]},
+    "NLVI" : {"all": ["windowcoverings_state"]},
+    "NBR" : {"all": ["windowcoverings_state"]},
+    "NBO" : {"all": ["windowcoverings_state"]},
+    "NBS" : {"all": ["windowcoverings_state"]},
+
     //Energy Meters
-    "NLPC" : ["measure_power"]
+    "NLPC" : {"all": ["measure_power"]},
 
 }
 
 const capabilitiesOptionsPerType = {
     //Lights
-    "NLPT" : {"onoff" : {}},
-    "NLM" : {"onoff" : {}},
-    "NLL" : {"onoff" : {}},
-    "NLF" : {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1, "decimals" : 0, "$flow": {"actions": [{"args":{"min": 0,"max": 100, "step": 1, "value": 50, "label": "%", "labelMultiplier": 1, "labelDecimals": 0}}]}}},
-    "NLFN" : {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1, "decimals" : 0, "$flow": {"actions": [{"args":{"min": 0,"max": 100, "step": 1, "value": 50, "label": "%", "labelMultiplier": 1, "labelDecimals": 0}}]}}},
+    "NLPT" : {'all': {"onoff" : {}}},
+    "NLM" : {'all': {"onoff" : {}}},
+    "NLL" : {'all': {"onoff" : {}}},
+    "NLF" : {'all': {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1, "decimals" : 0, "$flow": {"actions": [{"args":{"min": 0,"max": 100, "step": 1, "value": 50, "label": "%", "labelMultiplier": 1, "labelDecimals": 0}}]}}}},
+    "NLFN" : {'all': {"onoff" : {}, "dim" :{"min":0, "max":100, "step":1, "decimals" : 0, "$flow": {"actions": [{"args":{"min": 0,"max": 100, "step": 1, "value": 50, "label": "%", "labelMultiplier": 1, "labelDecimals": 0}}]}}}},
     //Plugs
-    "NLPO" : {"onoff" : {}},
-    "NLP" : {"onoff" : {}},
-    "NLPBS" : {"onoff" : {}},
-    "NLPM" : {"onoff" : {}},
-    "NLC" : {'plug' : {"onoff" : {}} ,'heater' : {}},
+    "NLPO" : {'all': {"onoff" : {}}},
+    "NLP" : {'all': {"onoff" : {}}},
+    "NLPBS" : {'all': {"onoff" : {}}},
+    "NLPM" : {'all': {"onoff" : {}}},
+    "NLC" : {'other' : {"onoff" : {}},'cooking' : {"onoff" : {}},'water_heater' : {"onoff" : {}},'radiator_without_pilot_wire' : {"onoff" : {}}, 'radiator' : {}},
     //VR
-    "NLV" : {"windowcoverings_state":{}},
-    "NLLV" : {"windowcoverings_level": {"min":0, "max":100, "step":1}},
-    "NLLM" : {"windowcoverings_state":{}},
-    "NLVI": {"windowcoverings_state":{}},
-    "NBR": {"windowcoverings_state":{}},
+    "NLV" : {'all':{"windowcoverings_state":{}}},
+    "NLLV" : {'all':{"windowcoverings_level": {"min":0, "max":100, "step":1}}},
+    "NLLM" : {'all':{"windowcoverings_state":{}}},
+    "NLVI": {'all':{"windowcoverings_state":{}}},
+    "NBR": {'all':{"windowcoverings_state":{}}},
     //Energy Meters
-    "NLPC" : {"measure_power":{}}
+    "NLPC" :{'all':{"measure_power":{}}},
 
 }
 
-function jsonConcat(o1, o2) {
-    for (let key in o2) {
-        o1[key] = o2[key];
-    }
-    return o1;
-}
 
 const deviceCategory = ['lights', 'plugs', 'energymeters', 'remotes', 'heaters', 'automations'];
 
 class LegrandHomeyConversion{
 
-    //FOR LegrandDevices
+    static jsonConcat(o1, o2) {
+        for (let key in o2) {
+            o1[key] = o2[key];
+        }
+        return o1;
+    }
 
+    //FOR LegrandDevices
     //Conversion of device's state data for API comprehension
     static deviceStatusToApi  (capabilitiesValues) {
         let body = {};
@@ -116,21 +121,21 @@ class LegrandHomeyConversion{
     }
 
     static multipleDeviceStatusToApi  (ids, request) {
-        let body = {};
-        let deviceData = {"device" : request.deviceType, "plantId" : request.plantId};
+        let body = {"home":{"id": request.plantId}};
+        let modules = [];
 
         body['ids'] = ids;
 
-        body = jsonConcat(body, LegrandHomeyConversion.deviceStatusToApi(request.capabilityValue));
+        modules = jsonConcat(modules, LegrandHomeyConversion.deviceStatusToApi(request.capabilityValue));
 
-        return [body, deviceData];
+        return [body];
     }
 
     //Function that extract data from api request for device statuses for homey capabilities
     static wrapDeviceData(json){
         let res = {};
         for (let [key, value] of Object.entries(deviceCapabilityTranslationFromApiToHomey)){
-            if (key === 'consumptions' && json[key] !== undefined) (res[value] = json[key][0]['value']);
+            if(json[key] !== undefined && key==='power'){res[value] = json[key]}
             else if (key === 'reachable') (res[value] = json[key]);
             //VR
             else if (key === 'level' && json[key] !== undefined && json.hasOwnProperty('step')) {
@@ -141,58 +146,39 @@ class LegrandHomeyConversion{
                 else{res[value[2]] = json[key]}
             }
             //Dimmer
-            else if (key === 'level' && json[key] !== undefined) (res[value[0]] = json[key]);
+            else if (key === 'brightness' && json[key] !== undefined) (res[value] = json[key]);
             //Others
             else if (json[key] !== undefined) (res[value] = deviceCapabilityValueTranslationFromApiToHomey[json[key]]);
         }
         return res;
     }
     //Conversion of device's state data for Homey comprehension
-    static deviceStatusFromApi(json){
-        let res;
-        for(let item of deviceCategory){
-            if (json[item] !== null && json[item] !== undefined){
-                res = json[item][0];
-            }
-        }
-        return LegrandHomeyConversion.wrapDeviceData(res);
-    }
-    //The same as before but the input data is differently wrapped
     static plantDeviceStatusFromApi(json, emitter){
-        const res = json['modules'];
-        for (let key of Object.keys(res)){
-            for (let item of res[key]){
-                const moduleId = item['sender']['plant']['module']['id'];
-                emitter.emit('state_device_changed', moduleId, LegrandHomeyConversion.wrapDeviceData(item));
-            }
+        const res = json['body']['home']['modules'];
+        for (const item of res){
+            const moduleId = item['id']
+            emitter.emit('state_device_changed', moduleId, LegrandHomeyConversion.wrapDeviceData(item));
         }
     }
 
     //For LegrandDriver
     static wrapModuleData(module){
 
-        let capabilities = {};
-        let capabilitiesOptions = {};
+        let appliance = module.applianceType;
 
-        if (module.device === 'heater' && module.hwType === 'NLC'){
-            capabilities = capabilitiesPerType[module.hwType]['heater'];
-            capabilitiesOptions = capabilitiesOptionsPerType[module.hwType]['heater'];
+        if(capabilitiesPerType[module.type].hasOwnProperty('all')){
+            appliance = 'all';
         }
-        else if (module.device === 'plug' && module.hwType === 'NLC'){
-            capabilities = capabilitiesPerType[module.hwType]['plug'];
-            capabilitiesOptions = capabilitiesOptionsPerType[module.hwType]['plug'];
-        }
-        else {
-            capabilities = capabilitiesPerType[module.hwType];
-            capabilitiesOptions = capabilitiesOptionsPerType[module.hwType];
-        }
+
+        const capabilities = capabilitiesPerType[module.type][appliance];
+        const capabilitiesOptions = capabilitiesOptionsPerType[module.type][appliance];
 
         const form = {
             name: module.name,
             data: {
                 id: module.id,
             },
-            store: { hwType: module.hwType, plantId: module.plantId, device: module.device },
+            store: { type: module.type, appliance_type: module.applianceType, room_id: module.roomId, bridge: module.bridge, plantId: module.plantId },
             capabilities : capabilities,
             capabilitiesOptions: capabilitiesOptions
         }; // fin form
@@ -217,20 +203,25 @@ class LegrandHomeyConversion{
         return form;
     }
 
-    static wrapPlantData(plant, plantDetail){
-        for (let item of plantDetail['ambients']) {
-            const room = new LegrandRoom(item['name'], item['id'], item['type'], plant['id']);
-            plant.addRoomToPlant(room);
+    static wrapPlantData(plantArray, plantDetail){
 
-            for (let moduleOfItem of item['modules']) {
-                const module = new LegrandModule(moduleOfItem['name'], moduleOfItem['id'], moduleOfItem['device'], moduleOfItem['hw_type'], room.id, plant.id);
-                plant.addModuleToRoom(module, room.id);
-            }
-        }
-        for (let item of plantDetail['modules']) {
-            if (item !== undefined) {
-                const module = new LegrandModule(item['name'], item['id'], item['device'], item['hw_type'], undefined, plant.id);
-                plant.addModuleToPlant(module);
+        const data = plantDetail['body']['homes']
+
+        for (const plant of plantArray){
+            for (const detail of data){
+                if (detail['id'] === plant.id){
+                    for (let item of detail['rooms']) {
+                        const room = new LegrandRoom(item['name'], item['id'], item['type'], plant['id']);
+                        plant.addRoomToPlant(room);
+
+                    }
+                    for (let item of detail['modules']) {
+                        if (item !== undefined) {
+                            const module = new LegrandModule(item['name'], item['id'], item['type'], item['appliance_type'], item['room_id'], item['bridge'], plant.id);
+                            plant.addModuleToPlant(module,item['room_id'] );
+                        }
+                    }
+                }
             }
         }
     }

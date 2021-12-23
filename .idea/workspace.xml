@@ -20,12 +20,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9d5a8bc-1c13-440c-b1c6-fced05b415a1" name="Default Changelist" comment="Version 1.0.5a">
-      <change beforePath="$PROJECT_DIR$/.homeychangelog.json" beforeDir="false" afterPath="$PROJECT_DIR$/.homeychangelog.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/legrand-homey/lib/Buffer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/energymeterdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/energymeterdriver/driver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/lightdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/lightdriver/driver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/rollershutterdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/rollershutterdriver/driver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/scenedriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/scenedriver/driver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/socketdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/driver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/drivers/wiredpilotdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/wiredpilotdriver/driver.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandBuffer.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandBuffer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/YchApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/YchApp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandModule.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandPlant.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandPlant.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandRequest.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/Logger.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/Logger.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +67,9 @@
     </file-type-list>
   </component>
   <component name="JupyterTrust" id="364bd0e4-95c5-442f-9889-4c4f7e6e6a4f" />
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="1ghBZgVlalz9PxwCZCHhAFDdA6A" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -64,6 +82,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="15.12.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="15.12.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -180,6 +200,8 @@
       <workItem from="1625156467456" duration="513000" />
       <workItem from="1625157028035" duration="1675000" />
       <workItem from="1625233078398" duration="4435000" />
+      <workItem from="1640184574896" duration="30009000" />
+      <workItem from="1640262927510" duration="12668000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.5a">
       <created>1617573320727</created>
@@ -204,7 +226,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Version 1.0.5a" />
@@ -220,7 +241,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js</url>
-          <line>67</line>
+          <line>72</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

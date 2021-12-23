@@ -13,7 +13,7 @@ class SceneDriver extends Homey.Driver {
     }).catch(err => this.log(err));
     
     this.homey.flow.getDeviceTriggerCard('scene_launched');
-    this.registerWebHook(this,this.homey.app.getStoredSettings('plants'))
+    if (this.homey.app.getStoredSettings('plants') !== undefined) {this.registerWebHook(this,this.homey.app.getStoredSettings('plants'))}
     this.log('Driver has been inited');
   }
 

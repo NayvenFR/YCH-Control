@@ -6,7 +6,7 @@ const LegrandDriver = require('../../legrand-homey/LegrandDriver');
 class RollerShutterDriver extends Homey.Driver {
 
   onInit() {
-    this.driver_type = 'automation';
+    this.driver_type = {"NLLV":undefined, "NLV":undefined, "NLLM": undefined, "NLVI": undefined, "NBR": undefined, "NBO": undefined, "NBS": undefined};
 
     this._flowTriggerLevelChanged = this.homey.flow.getDeviceTriggerCard('level_changed');
 
@@ -21,6 +21,11 @@ class RollerShutterDriver extends Homey.Driver {
   async onPair(session) {
     this.log('Pairing session started');
     await LegrandDriver.onPairLegrand(session, this, Homey);
+  }
+
+  async onRepair(session, device) {
+    this.log('Repairing session started');
+    await LegrandDriver.onRepairLegrand(session, device, this, Homey);
   }
 }
 

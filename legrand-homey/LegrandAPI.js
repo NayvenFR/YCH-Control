@@ -64,22 +64,9 @@ class LegrandAPI {
         const resMap = {
           access_token: res['access_token'],
           refresh_token: res['refresh_token'],
+          expires_in: res['expires_in']
         };
         resolve(resMap);
-      }).catch(err => {
-        reject(err);
-      })
-    })
-  }
-
-  //Cette méthode effectue la requete pour accéder au dernier état d'un seul device
-  static getDeviceStatus (auth, deviceData) {
-
-    const args = {"AUTH_MAP" : auth, "DEVICE_MAP" : deviceData, "method" : 'get'};
-
-    return new Promise((resolve, reject) => {
-      LegrandAPI.globalQuery(LegrandQuery.QueryDevice, args).then(res => {
-        resolve(conversion.deviceStatusFromApi(res));
       }).catch(err => {
         reject(err);
       })
@@ -101,35 +88,16 @@ class LegrandAPI {
     })
   }
 
-  //Cette méthode effectue la requete http pour affecter un état à un device.
-  static setDeviceStatus (auth, deviceData, capabilityValues) {
-
-    const body = conversion.deviceStatusToApi(capabilityValues);
-    const args = {"AUTH_MAP" : auth, "DEVICE_MAP" : deviceData, "method" : 'post', "VALUE_BODY": body, "isMultiple" : false};
-
-    return new Promise((resolve, reject) => {
-      LegrandAPI.globalQuery(LegrandQuery.QueryDevice, args).then(res => {
-        resolve(`Device state changed to :${body}`);
-      }).catch(err => {
-        reject(err);
-      })
-    })
-  }
-
-  static setMultipleDeviceStatus(auth, request, ids) {
+  static setDeviceStatus(auth, body) {
 
     return new Promise((resolve, reject) => {
       let res;
 
-        const [body, deviceData] = conversion.multipleDeviceStatusToApi(ids, request);
-
         const args = {
           "AUTH_MAP": auth,
-          "DEVICE_MAP": deviceData,
-          "method": 'post',
           "VALUE_BODY": body,
-          "isMultiple": true
         };
+
         LegrandAPI.globalQuery(LegrandQuery.QueryDevice, args).catch(err => {
           reject(err);
         })
@@ -143,12 +111,15 @@ class LegrandAPI {
     const args = {"AUTH_MAP" : auth};
     return new Promise((resolve, reject) => {
       LegrandAPI.globalQuery(LegrandQuery.QueryPlant, args).then(res => {
-        const plantsArray = [];
 
-        for (const item of res['plants']) {
+        const plantsArray = [];
+        const p = res['body']['homes']
+
+        for (const item of p) {
           const plant = new LegrandPlant(item['name'], item['id'], item['country']);
           plantsArray.push(plant);
         }
+
         resolve(plantsArray);
       }).catch(err => {
         reject(err);
@@ -157,34 +128,42 @@ class LegrandAPI {
   }
 
   static getPlantsTopology (auth) {
+    const args = {"AUTH_MAP" : auth};
     return new Promise((resolve, reject) => {
-      LegrandAPI.getPlants(auth).then(async plants => {
-        const plantsArray = plants;
-        for (const plant of plantsArray) {
-          const args = {"AUTH_MAP" : auth, "query_type": 'topology', "plantId" : plant.id};
-          await LegrandAPI.globalQuery(LegrandQuery.QueryPlant, args).then(res => {
-            const plantDetail = res['plant'];
-            conversion.wrapPlantData(plant, plantDetail);
-          }).catch(err => {
-            reject(err);
-          })
+      LegrandAPI.globalQuery(LegrandQuery.QueryPlant, args).then(res => {
+
+        const plantsArray = [];
+        const p = res['body']['homes']
+
+        for (const item of p) {
+          const plant = new LegrandPlant(item['name'], item['id'], item['country']);
+          plantsArray.push(plant);
         }
+
+        conversion.wrapPlantData(plantsArray, res);
         resolve(plantsArray);
       }).catch(err => {
         reject(err);
       })
-    });
+    })
   }
 
-  static getDevicesList(auth, deviceType) {
+
+  static getDevicesList(auth, deviceType, driverClass) {
     return new Promise((resolve, reject) => {
       LegrandAPI.getPlantsTopology(auth).then(plants => {
         let devices = [];
         for (const plant of plants) {
           const modules = plant.getPlantsModules();
           for (const module of modules) {
-            if (module.device === deviceType) {
+            if (deviceType.hasOwnProperty(module.type) && module.applianceType === deviceType[module.type]) {
               devices.push(conversion.wrapModuleData(module));
+            }
+            else if (deviceType.hasOwnProperty(module.type) && driverClass === "socket"){
+              const applianceTable = ["fridge_freezer", "oven", "washing_machine","tumble_dryer","dishwasher","multimedia","router", "other", "electric_charger", "water_heater", "radiator_without_pilot_wire", "cooking"];
+              for (const k of applianceTable ){
+                if (k === module.applianceType) devices.push(conversion.wrapModuleData(module));
+              }
             }
           }
         }

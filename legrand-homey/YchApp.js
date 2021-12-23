@@ -6,7 +6,7 @@ const LegrandAPI = require('/legrand-homey/LegrandAPI');
 const LegrandBuffer = require('/legrand-homey/LegrandBuffer');
 const Logger = require('/legrand-homey/lib/Logger');
 const fullDayMs = 24*60*60*1000;
-const access_Token_Timeout = 3600 * 1000;
+let access_Token_Timeout = 10800 * 1000;
 const refresh_Token_Timeout = 7776000 * 1000;
 const default_sync_speed = 10*60000;
 const default_delay_speed = 5000;
@@ -22,7 +22,6 @@ class YchApp extends Homey.App {
         this.GLOBAL_AUTH_MAP = {
             client_id: Homey.env.CLIENT_ID,
             client_secret: Homey.env.CLIENT_SECRET,
-            subscription_key: Homey.env.SUBSCRIPTION_KEY,
             access_token: this.getStoredSettings('access_token'),
             refresh_token: this.getStoredSettings('refresh_token'),
             
