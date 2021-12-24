@@ -45,7 +45,9 @@ class LegrandDriver {
             HomeyDriver.logger.log(err);
           });
 
-      devices = LegrandDriver.filterDevicesList(HomeyDriver, devices);
+      //devices = await LegrandDriver.filterDevicesList(HomeyDriver, devices);
+
+      console.log(devices);
 
       LegrandDriver.storePlantAndDevicesData(HomeyDriver, plants);
 
@@ -57,17 +59,21 @@ class LegrandDriver {
     });
   }
 
-  static filterDevicesList(HomeyDriver, devicesList){
+  static async filterDevicesList(HomeyDriver, devicesList){
       const registeredDevices = HomeyDriver.getDevices();
       let res = [];
-      for (const item of registeredDevices){
-          const data = LegrandDevices.getDeviceMap(item);
-          for (const dev of devicesList){
-              if (data.id !== dev["data"].id) res.push(dev);
+      if (registeredDevices !== []){
+          for (const item of registeredDevices){
+              const data = LegrandDevices.getDeviceMap(item);
+              for (const dev of devicesList){
+                  console.log(data.id, dev["data"].id)
+                  if (data.id !== dev["data"].id) res.push(dev);
 
+              }
           }
+          return res;
       }
-      return res;
+      else return devicesList;
   }
 
   static driverGetDevicesList(HomeyDriver) {
@@ -86,7 +92,7 @@ class LegrandDriver {
         HomeyDriver.homey.app.legrand_api.getScenesList(auth, HomeyDriver).then(res => {
           resolve(res);
         }).catch(err => reject(err));
-        // adding events subscription 
+        // adding events subscription
         if (!events_subscribed){
           HomeyDriver.homey.app.legrand_api.subscribePlantEvents(auth);
         }

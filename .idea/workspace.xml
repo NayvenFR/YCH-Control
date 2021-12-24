@@ -20,27 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a9d5a8bc-1c13-440c-b1c6-fced05b415a1" name="Default Changelist" comment="Version 1.0.5a">
-      <change afterPath="$PROJECT_DIR$/legrand-homey/lib/Buffer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.homeychangelog.json" beforeDir="false" afterPath="$PROJECT_DIR$/.homeychangelog.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/energymeterdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/energymeterdriver/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/lightdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/lightdriver/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/rollershutterdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/rollershutterdriver/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/scenedriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/scenedriver/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/socketdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/socketdriver/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/drivers/wiredpilotdriver/driver.js" beforeDir="false" afterPath="$PROJECT_DIR$/drivers/wiredpilotdriver/driver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandBuffer.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandBuffer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDevices.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/YchApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/YchApp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandModule.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandModule.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandPlant.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandPlant.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandRequest.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandRequest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/Logger.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/Logger.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +185,8 @@
       <workItem from="1625157028035" duration="1675000" />
       <workItem from="1625233078398" duration="4435000" />
       <workItem from="1640184574896" duration="30009000" />
-      <workItem from="1640262927510" duration="12668000" />
+      <workItem from="1640262927510" duration="13270000" />
+      <workItem from="1640355160834" duration="1186000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.5a">
       <created>1617573320727</created>

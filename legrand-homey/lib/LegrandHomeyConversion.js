@@ -10,7 +10,7 @@ const {app} = require("homey");
 const deviceCapabilityTranslationFromHomeyToAPI = {
     'onoff': 'on',
     'dim' : 'brightness',
-    'windowcoverings_state' : 'target_position',
+    'windowcoverings_state' : 'target_position:step:',
     'windowcoverings_level' : 'target_position',
     'wiredpilot_mode' : 'mode'
 };
@@ -28,7 +28,7 @@ const deviceCapabilityValueTranslationFromHomeyToAPI = {
 const deviceCapabilityTranslationFromApiToHomey = {
     'on': 'onoff',
     "brightness":'dim',
-    'xxxx' : ['windowcoverings_state', 'windowcoverings_level'],
+    'current_position' : ['windowcoverings_state', 'windowcoverings_level'],
     'power' : 'measure_power',
     'reachable' : 'avaibility',
     "mode" : 'wiredpilot_mode'
@@ -187,11 +187,11 @@ class LegrandHomeyConversion{
     }
 
     static wrapSceneData(scene, plant,homeyDriver){
-        const name = homeyDriver.homey.__(scene["name"]); 
+        const name = homeyDriver.homey.__(scene["name"]);
         const id = scene["sender"]["plant"]["module"]["id"];
         const friendlyName = scene["friendlyName"]
         const plantId = plant;
-        
+
 
         const form = {
             name: friendlyName !== undefined ? friendlyName : name,

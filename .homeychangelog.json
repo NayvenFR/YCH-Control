@@ -20,5 +20,8 @@
   },
   "1.1.2": {
     "en": "- Added support for energy meters, fixed a problem with roller shutters that didn't move when a command was issued, added an error logger accessible in the app's options (still in beta), added support for more lights and fixed a problem with custom flows"
+  },
+  "1.1.5": {
+    "en": "Changed API from Legrand to Netatmo"
   }
 }
