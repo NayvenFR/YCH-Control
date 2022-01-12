@@ -116,21 +116,6 @@
             "filter": "driver_id=rollershutterdriver&capabilities=windowcoverings_level"
           }
         ]
-      },
-      {
-        "id": "scene_launched",
-        "title": {
-          "en": "Scene launched",
-          "fr": "Scénario lancé",
-          "it": "Scenario lanciato"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "my_device",
-            "filter": "driver_id=scenedriver"
-          }
-        ]
       }
     ],
     "conditions": [
