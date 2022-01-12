@@ -92,10 +92,6 @@ class LegrandDriver {
         HomeyDriver.homey.app.legrand_api.getScenesList(auth, HomeyDriver).then(res => {
           resolve(res);
         }).catch(err => reject(err));
-        // adding events subscription
-        if (!events_subscribed){
-          HomeyDriver.homey.app.legrand_api.subscribePlantEvents(auth);
-        }
       }).catch(err => reject(err));
     });
   }

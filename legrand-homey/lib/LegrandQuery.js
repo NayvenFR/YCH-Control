@@ -1,13 +1,15 @@
 'use strict';
 
-const fetch = require('../../lib/node-fetch');
+const fetch = require('node-fetch');
 
 // URL and BODIES for Legrand API interaction
 
 const urlList = {
   TOKEN_URL: 'https://api.netatmo.com/oauth2/token',
   TOKEN_BODY: 'grant_type={GRANT_TYPE}&client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&{TOKEN_TYPE}&scope=read_magellan write_magellan read_bubendorff write_bubendorff&redirect_uri=https://callback.athom.com/oauth2/callback/',
-  GET_SCENE : 'https://api.developer.legrand.com/hc/api/v1.0/scene/comfort/addressLocation/plants/{plantId}',
+  SET_STATE : 'https://api.netatmo.com/api/setstate',
+  GET_SCENE : 'https://api.netatmo.com/api/getscenarios?home_id=', 
+  GET_GATEWAY_ID : 'https://api.netatmo.com/api/homestatus?device_types=NLG&home_id=',
   RUN_SCENE : 'https://api.developer.legrand.com/hc/api/v1.0/scene/comfort/addressLocation/plants/{plantId}/modules/parameter/id/value/{sceneId}',
   SUBSCRIPTION_URL : 'https://api.developer.legrand.com/hc/api/v1.0/addsubscription'
 
@@ -118,6 +120,7 @@ async function QueryDevice(args) {
 }
 
 async function QueryScene (args){
+  console.log("LegrandQuery.QueryScene");
   const auth = args["AUTH_MAP"];
   const method = args["method"];
   let url="";
@@ -125,25 +128,14 @@ async function QueryScene (args){
   let options = null;
   let headers = null;
 
-  if (method === 'post') {
-    const data = args["data"];
-    url = await replaceValues(urlList['RUN_SCENE'], {'{plantId}': data['plantId'], '{sceneId}': data['id'] });
-    headers = {
-      'Content-Type': 'application/json',
-      'Ocp-Apim-Subscription-Key': auth['subscription_key'],
-      Authorization: `Bearer ${auth['access_token']}`,
-    };
-    options = { method, body: JSON.stringify({"enable": true}), headers };
-
-  } else if (method === 'get') {
-    const id = args['plantId'];
-    url = await replaceValues(urlList['GET_SCENE'], {'{plantId}': id});
-    headers = {
-      'Ocp-Apim-Subscription-Key': auth['subscription_key'],
-      Authorization: `Bearer ${auth['access_token']}`,
-    };
-    options = { method, headers };
-  }
+  const id = args['plantId'];
+  url = urlList['GET_SCENE'] + id;
+  headers = {
+    'Content-Type': 'application/json',
+    accept: "application/json",
+    Authorization: `Bearer ${auth['access_token']}`,
+  };
+  options = { method, headers };
   return new Promise((resolve, reject) => {
     fetch(url, options).then(res => {
       resolve(res);
@@ -153,25 +145,60 @@ async function QueryScene (args){
   });
 }
 
-async function SubscribeEvents(args) {
-  
-  const auth = args["AUTH_MAP"];
+async function ExecuteScene (args){
+   const auth = args["AUTH_MAP"];
   const method = args["method"];
-  const body = args["VALUE_BODY"];
   let url="";
-
-  url = urlList['SUBSCRIPTION_URL'];
-  
 
   let options = null;
   let headers = null;
 
+  const data = args["data"];
+  url = urlList['SET_STATE'];
   headers = {
-    "Content-Type": "application/json",
-    "Ocp-Apim-Subscription-Key": auth['subscription_key'],
-    "Authorization": `Bearer ${auth['access_token']}`,
+    'Content-Type': 'application/json',
+    accept: "application/json",
+    Authorization: `Bearer ${auth['access_token']}`,
   };
-  options = { method, body: JSON.stringify(body), headers };
+  
+  const body = {
+    home: {
+      'id': data.plantId,
+      'modules':[{
+        'id': data.gateway_id,
+        'scenario':  data.id
+      }]
+    }
+  };
+      
+  options = {method: 'post', body: JSON.stringify(body), headers };
+  console.log(options);
+
+  return new Promise((resolve, reject) => {
+    fetch(url, options).then(res => {
+      resolve(res);
+    }).catch(err => {
+      reject(err);
+    });
+  });
+}
+
+async function QueryGateway (args){
+  const auth = args["AUTH_MAP"];
+  const method = args["method"];
+  let url="";
+
+  let options = null;
+  let headers = null;
+
+  const id = args['plantId'];
+  url = urlList["GET_GATEWAY_ID"]+ id;
+  headers = {
+    'Content-Type': 'application/json',
+    accept: "application/json",
+    Authorization: `Bearer ${auth['access_token']}`,
+  };
+  options = { method, headers };
 
   return new Promise((resolve, reject) => {
     fetch(url, options).then(res => {
@@ -186,4 +213,5 @@ module.exports.QueryToken = QueryToken;
 module.exports.QueryPlant = QueryPlant;
 module.exports.QueryDevice = QueryDevice;
 module.exports.QueryScene = QueryScene;
-module.exports.SubscribeEvents = SubscribeEvents;
+module.exports.ExecuteScene = ExecuteScene;
+module.exports.QueryGateway = QueryGateway;

@@ -186,17 +186,19 @@ class LegrandHomeyConversion{
         return form;
     }
 
-    static wrapSceneData(scene, plant,homeyDriver){
-        const name = homeyDriver.homey.__(scene["name"]);
-        const id = scene["sender"]["plant"]["module"]["id"];
-        const friendlyName = scene["friendlyName"]
+    static wrapSceneData(scene, plant,gateway_ID,homeyDriver){
+        const name = homeyDriver.homey.__(scene["id"]);
+        const id = scene["id"];
+        const friendlyName = scene["name"]
         const plantId = plant;
+        const gateway_id=gateway_ID;
 
 
         const form = {
             name: friendlyName !== undefined ? friendlyName : name,
             data: {
                 id: id,
+                gateway_id: gateway_id,
             },
             store: { plantId: plantId},
         }; // fin form

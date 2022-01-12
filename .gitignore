@@ -1,6 +1,10 @@
 env.json
 /node_modules
 /legrand-homey/lib/node-fetch
-/.idea
+.idea/*
 /settings/homey.js
 run.zch
+build/*
+
+# Added by Homey CLI
+/.homeybuild/

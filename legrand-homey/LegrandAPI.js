@@ -176,7 +176,7 @@ class LegrandAPI {
     const args = {"AUTH_MAP" : auth, "data" : sceneData, "method" : 'post'};
 
     return new Promise((resolve, reject) => {
-      LegrandAPI.globalQuery(LegrandQuery.QueryScene, args).then(res => {
+      LegrandAPI.globalQuery(LegrandQuery.ExecuteScene, args).then(res => {
         resolve(res);
       }).catch(err => {
         reject(err);
@@ -185,11 +185,24 @@ class LegrandAPI {
   }
 
   static getPlantScenes (auth, plant) {
-
     const args = {"AUTH_MAP" : auth, "plantId" : plant, "method" : 'get'};
 
     return new Promise(async (resolve, reject) => {
       await LegrandAPI.globalQuery(LegrandQuery.QueryScene, args).then(res => {
+        resolve(res);
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  }
+
+  static getPlantGateway (auth, plant) {
+    console.log("getPlantGateway");
+    const args = {"AUTH_MAP" : auth, "plantId" : plant, "method" : 'get'};
+
+    return new Promise(async (resolve, reject) => {
+      console.log("request")
+      await LegrandAPI.globalQuery(LegrandQuery.QueryGateway, args).then(res => {
         resolve(res);
       }).catch(err => {
         reject(err);
@@ -202,10 +215,20 @@ class LegrandAPI {
       LegrandAPI.getPlantsTopology(auth).then(async plants => {
         let scenes = [];
         for (const plant of plants) {
+          let gateway_ID ="";
+          await LegrandAPI.getPlantGateway(auth, plant.id).then(gatewayRes => {
+            const listGateway = gatewayRes.body.home["modules"];
+            for(let gateway of listGateway){
+              if (gateway.type === 'NLG'){
+                gateway_ID = gateway.id;
+                break;
+              }
+            }
+          });
           await LegrandAPI.getPlantScenes(auth, plant.id).then(res => {
-            const listScene = res["scenes"];
+            const listScene = res.body.home["scenarios"];
             for (let item of listScene){
-              scenes.push(conversion.wrapSceneData(item, plant.id,homeyDriver));
+              scenes.push(conversion.wrapSceneData(item, plant.id, gateway_ID, homeyDriver));
             }
           }).catch(err => reject (err));
         }
@@ -214,28 +237,6 @@ class LegrandAPI {
     });
   }
 
-
-  ////////////////
-  static subscribePlantEvents (auth) {
-    return new Promise((resolve, reject) => {
-      LegrandAPI.getPlants(auth).then(async plants => {
-        const plantsArray = plants;
-        for (const plant of plantsArray) {
-          let body = {};
-          body['plantid'] = plant.id;
-          const args = {"AUTH_MAP" : auth,  "VALUE_BODY": body, "method" : "POST"};
-          await LegrandAPI.globalQuery(LegrandQuery.SubscribeEvents, args).then(res => {
-             events_subscribed = true
-          }).catch(err => {
-            reject(err);
-          })
-        }
-        resolve(`Events subscribed`);
-      }).catch(err => {
-        reject(err);
-      })
-    });
-  }
 
 }
 

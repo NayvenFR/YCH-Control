@@ -2,18 +2,11 @@
 
 const Homey = require('homey');
 const LegrandDriver = require('../../legrand-homey/LegrandDriver');
+const scope = "&scope=read_magellan write_magellan read_bubendorff write_bubendorff";
 
 class SceneDriver extends Homey.Driver {
 
   onInit() {
-    this.homey.app.refreshAccessToken().then(auth => {
-      if (!events_subscribed){
-        this.homey.app.legrand_api.subscribePlantEvents(auth);
-      }
-    }).catch(err => this.log(err));
-    
-    this.homey.flow.getDeviceTriggerCard('scene_launched');
-    if (this.homey.app.getStoredSettings('plants') !== undefined) {this.registerWebHook(this,this.homey.app.getStoredSettings('plants'))}
     this.log('Driver has been inited');
   }
 
@@ -21,7 +14,7 @@ class SceneDriver extends Homey.Driver {
     let scenes;
 
     this.log('Pairing session started');
-    const apiUrl = `https://partners-login.eliotbylegrand.com/authorize?client_id=${Homey.env.CLIENT_ID}&redirect_uri=https://callback.athom.com/oauth2/callback/&response_type=code`;
+    const apiUrl = `https://api.netatmo.com/oauth2/authorize?client_id=${Homey.env.CLIENT_ID}&redirect_uri=https://callback.athom.com/oauth2/callback/${scope}&response_type=code]`;
     const myOAuth2Callback = await this.homey.cloud.createOAuth2Callback(apiUrl);
 
     //On vérifie si l'utilisateur s'est déjà loggé auparavant
@@ -58,52 +51,12 @@ class SceneDriver extends Homey.Driver {
             this.logger.log(err);
           });
       
-      //webhook registration
-      this.registerWebHook(this, this.homey.app.getStoredSettings('plants'));
       //On envoie au front end la liste des devices
       await session.emit('list_devices', scenes);
       this.log('Pairing session terminated');
 
       return scenes;
     });
-  }
-
-  async registerWebHook(HomeyDriver, plants){
-    HomeyDriver.log("registerWebHook")
-    if (this._webhook) {
-        await this.unregisterWebhook(HomeyDriver).catch(this.error);
-    }
-    
-    const plantsId = [];
-    for (const plant of plants) {
-      plantsId.push(plant.id)
-    }
-    
-    let webhook_data;
-    webhook_data = {
-      $keys: plantsId,
-    }
-    
-    HomeyDriver.log(webhook_data);
-    this._webhook = await HomeyDriver.homey.cloud.createWebhook(HomeyDriver.homey.app.GLOBAL_AUTH_MAP['webhook_id'], HomeyDriver.homey.app.GLOBAL_AUTH_MAP['webhook_secret'], webhook_data);
-    
-    this._webhook.on('message',args =>{
-      
-      const triggeredDevice = args.body[0].data.sender.plant.module.id;
-
-      const device = this.getDevices().find(device => device.getData().id === triggeredDevice);
-      const sceneLaunched = this.homey.flow.getTriggerCard("scene_launched")
-      sceneLaunched.trigger(device)
-      
-    });
-    //HomeyDriver.log(this._webhook)
-  }
-
-  async unregisterWebhook(HomeyDriver) {
-    if (this._webhook) {
-        await this._webhook.unregister();
-        HomeyDriver.log('Webhook unregistered');
-    }
   }
 }
 

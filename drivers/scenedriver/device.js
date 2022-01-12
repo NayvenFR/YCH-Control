@@ -2,7 +2,7 @@
 
 const Homey = require('homey');
 const LegrandDevices = require('../../legrand-homey/LegrandDevices');
-
+const scope = "&scope=read_magellan write_magellan read_bubendorff write_bubendorff";
 
 class SceneDevice extends Homey.Device {
 
