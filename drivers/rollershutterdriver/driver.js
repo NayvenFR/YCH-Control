@@ -6,8 +6,8 @@ const LegrandDriver = require('../../legrand-homey/LegrandDriver');
 class RollerShutterDriver extends Homey.Driver {
 
   onInit() {
-    this.driver_type = {"NLLV":undefined, "NLV":undefined, "NLLM": undefined, "NLVI": undefined, "NBR": undefined, "NBO": undefined, "NBS": undefined};
-
+    this.driver_type = {"NLLV":'rolling_shutter', "NLV":'rolling_shutter', "NLLM": 'rolling_shutter', "NLVI": 'rolling_shutter', "NBR": 'rolling_shutter', "NBO": 'rolling_shutter', "NBS": 'rolling_shutter'};
+    
     this._flowTriggerLevelChanged = this.homey.flow.getDeviceTriggerCard('level_changed');
 
     this.log('Driver has been inited');
