@@ -138,7 +138,7 @@ class LegrandHomeyConversion{
             if(json[key] !== undefined && key==='power'){res[value] = json[key]}
             else if (key === 'reachable') (res[value] = json[key]);
             //VR
-            else if (key === 'level' && json[key] !== undefined && json.hasOwnProperty('step')) {
+            else if (key === 'current_position' && json[key] !== undefined && json.hasOwnProperty('target_position:step')) {
                 /*if (json[key] === 0) {res[value[0]] = 'down';}
                 else if (json[key] === 100) {res[value[0]] = 'up';}
                 else if (json[key] === 50) {res[value[0]] = 'idle';}
