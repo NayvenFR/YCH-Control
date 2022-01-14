@@ -139,11 +139,12 @@ class LegrandHomeyConversion{
             else if (key === 'reachable') (res[value] = json[key]);
             //VR
             else if (key === 'level' && json[key] !== undefined && json.hasOwnProperty('step')) {
-                if (json[key] === 0) {res[value[1]] = 'down';}
-                else if (json[key] === 100) {res[value[1]] = 'up';}
-                else if (json[key] === 50) {res[value[1]] = 'idle';}
+                /*if (json[key] === 0) {res[value[0]] = 'down';}
+                else if (json[key] === 100) {res[value[0]] = 'up';}
+                else if (json[key] === 50) {res[value[0]] = 'idle';}
                 //For VR with position control
-                else{res[value[2]] = json[key]}
+                else{res[value[1]] = json[key]}*/
+                res[value[1]] = json[key];
             }
             //Dimmer
             else if (key === 'brightness' && json[key] !== undefined) (res[value] = json[key]);
