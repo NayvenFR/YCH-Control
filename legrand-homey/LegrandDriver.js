@@ -47,8 +47,6 @@ class LegrandDriver {
 
       //devices = await LegrandDriver.filterDevicesList(HomeyDriver, devices);
 
-      console.log(devices);
-
       LegrandDriver.storePlantAndDevicesData(HomeyDriver, plants);
 
       //On envoie au front end la liste des devices
@@ -66,7 +64,6 @@ class LegrandDriver {
           for (const item of registeredDevices){
               const data = LegrandDevices.getDeviceMap(item);
               for (const dev of devicesList){
-                  console.log(data.id, dev["data"].id)
                   if (data.id !== dev["data"].id) res.push(dev);
 
               }
@@ -169,7 +166,6 @@ class LegrandDriver {
   static async repairDevice(device, devicesList){
 
       const module = await LegrandDriver.findModuleById(devicesList, device);
-      console.log(module)
 
       await device.unsetStoreValue('hwType');
       await device.unsetStoreValue('device');
@@ -216,7 +212,6 @@ class LegrandDriver {
       return new Promise(async resolve => {
           const newId = await LegrandDriver.getNewId(device);
           for (const item of modules){
-              console.log(item["data"].id, newId);
               if (item["data"].id === newId) resolve (item);
           }
       })

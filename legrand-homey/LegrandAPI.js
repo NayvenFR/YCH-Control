@@ -197,11 +197,9 @@ class LegrandAPI {
   }
 
   static getPlantGateway (auth, plant) {
-    console.log("getPlantGateway");
     const args = {"AUTH_MAP" : auth, "plantId" : plant, "method" : 'get'};
 
     return new Promise(async (resolve, reject) => {
-      console.log("request")
       await LegrandAPI.globalQuery(LegrandQuery.QueryGateway, args).then(res => {
         resolve(res);
       }).catch(err => {

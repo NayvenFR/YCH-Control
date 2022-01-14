@@ -120,7 +120,6 @@ async function QueryDevice(args) {
 }
 
 async function QueryScene (args){
-  console.log("LegrandQuery.QueryScene");
   const auth = args["AUTH_MAP"];
   const method = args["method"];
   let url="";
@@ -172,7 +171,6 @@ async function ExecuteScene (args){
   };
       
   options = {method: 'post', body: JSON.stringify(body), headers };
-  console.log(options);
 
   return new Promise((resolve, reject) => {
     fetch(url, options).then(res => {

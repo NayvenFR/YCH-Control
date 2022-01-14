@@ -20,8 +20,6 @@ class SceneDevice extends Homey.Device {
     }, 500);
 
     this.log(this.getName(), 'has been inited');
-
-    this.homey.flow.getTriggerCard('scene_launched')
   }
 
 }
