@@ -14,7 +14,7 @@ class RollerShutterDriver extends Homey.Driver {
   }
 
   triggerMyFlow(device, mode){
-    this._flowTriggerLevelChanged.triggerMyFlow(device, {})
+    this._flowTriggerLevelChanged.trigger(device, {})
         .catch(this.error);
   }
 
