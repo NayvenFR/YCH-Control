@@ -1,6 +1,6 @@
 'use strict';
 
-const fetch = require('node-fetch');
+const fetch = require('../../lib/node-fetch');
 
 // URL and BODIES for Legrand API interaction
 
@@ -8,7 +8,7 @@ const urlList = {
   TOKEN_URL: 'https://api.netatmo.com/oauth2/token',
   TOKEN_BODY: 'grant_type={GRANT_TYPE}&client_id={CLIENT_ID}&client_secret={CLIENT_SECRET}&{TOKEN_TYPE}&scope=read_magellan write_magellan read_bubendorff write_bubendorff&redirect_uri=https://callback.athom.com/oauth2/callback/',
   SET_STATE : 'https://api.netatmo.com/api/setstate',
-  GET_SCENE : 'https://api.netatmo.com/api/getscenarios?home_id=', 
+  GET_SCENE : 'https://api.netatmo.com/api/getscenarios?home_id=',
   GET_GATEWAY_ID : 'https://api.netatmo.com/api/homestatus?device_types=NLG&home_id=',
   RUN_SCENE : 'https://api.developer.legrand.com/hc/api/v1.0/scene/comfort/addressLocation/plants/{plantId}/modules/parameter/id/value/{sceneId}',
   SUBSCRIPTION_URL : 'https://api.developer.legrand.com/hc/api/v1.0/addsubscription'
@@ -159,7 +159,7 @@ async function ExecuteScene (args){
     accept: "application/json",
     Authorization: `Bearer ${auth['access_token']}`,
   };
-  
+
   const body = {
     home: {
       'id': data.plantId,
@@ -169,7 +169,7 @@ async function ExecuteScene (args){
       }]
     }
   };
-      
+
   options = {method: 'post', body: JSON.stringify(body), headers };
 
   return new Promise((resolve, reject) => {

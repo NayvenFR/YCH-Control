@@ -23,8 +23,10 @@
       <change beforePath="$PROJECT_DIR$/.homeychangelog.json" beforeDir="false" afterPath="$PROJECT_DIR$/.homeychangelog.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandAPI.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/LegrandDriver.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandHomeyConversion.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/legrand-homey/lib/LegrandQuery.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,6 +189,9 @@
       <workItem from="1640184574896" duration="30009000" />
       <workItem from="1640262927510" duration="13270000" />
       <workItem from="1640355160834" duration="1186000" />
+      <workItem from="1642344656189" duration="318000" />
+      <workItem from="1642367791786" duration="2139000" />
+      <workItem from="1642370300042" duration="1601000" />
     </task>
     <task id="LOCAL-00001" summary="Version 1.0.5a">
       <created>1617573320727</created>

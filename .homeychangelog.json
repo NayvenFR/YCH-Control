@@ -23,5 +23,17 @@
   },
   "1.1.5": {
     "en": "Changed API from Legrand to Netatmo"
+  },
+  "1.1.6": {
+    "en": "Several bug fix"
+  },
+  "1.1.7": {
+    "en": "Several bug fix"
+  },
+  "1.1.8": {
+    "en": "Fixed app crashing on start"
+  },
+  "1.1.9": {
+    "en": "Fixed app crashing on start"
   }
 }

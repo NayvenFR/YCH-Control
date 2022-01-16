@@ -218,10 +218,12 @@ class LegrandHomeyConversion{
                         plant.addRoomToPlant(room);
 
                     }
-                    for (let item of detail['modules']) {
-                        if (item !== undefined) {
-                            const module = new LegrandModule(item['name'], item['id'], item['type'], item['appliance_type'], item['room_id'], item['bridge'], plant.id);
-                            plant.addModuleToPlant(module,item['room_id'] );
+                    if (detail['modules']) {
+                        for (let item of detail['modules']) {
+                            if (item !== undefined) {
+                                const module = new LegrandModule(item['name'], item['id'], item['type'], item['appliance_type'], item['room_id'], item['bridge'], plant.id);
+                                plant.addModuleToPlant(module,item['room_id'] );
+                            }
                         }
                     }
                 }

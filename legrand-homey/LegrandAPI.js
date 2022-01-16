@@ -134,7 +134,6 @@ class LegrandAPI {
 
         const plantsArray = [];
         const p = res['body']['homes']
-
         for (const item of p) {
           const plant = new LegrandPlant(item['name'], item['id'], item['country']);
           plantsArray.push(plant);

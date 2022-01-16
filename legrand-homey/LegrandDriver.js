@@ -45,7 +45,7 @@ class LegrandDriver {
             HomeyDriver.logger.log(err);
           });
 
-      //devices = await LegrandDriver.filterDevicesList(HomeyDriver, devices);
+      devices = await LegrandDriver.filterDevicesList(HomeyDriver, devices);
 
       LegrandDriver.storePlantAndDevicesData(HomeyDriver, plants);
 
@@ -58,15 +58,17 @@ class LegrandDriver {
   }
 
   static async filterDevicesList(HomeyDriver, devicesList){
-      const registeredDevices = HomeyDriver.getDevices();
+      const registeredDevices = await HomeyDriver.getDevices();
       let res = [];
-      if (registeredDevices !== []){
-          for (const item of registeredDevices){
-              const data = LegrandDevices.getDeviceMap(item);
-              for (const dev of devicesList){
-                  if (data.id !== dev["data"].id) res.push(dev);
-
+      if (registeredDevices.length !== 0){
+          for (const dev of devicesList){
+              let found = false;
+              for (const item of registeredDevices){
+                  const data = LegrandDevices.getDeviceMap(item);
+                  console.log(data.id,dev["data"].id );
+                  if (data.id === dev["data"].id) found = true;
               }
+              if(!found) res.push(dev);
           }
           return res;
       }
